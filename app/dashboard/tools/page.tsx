@@ -23,7 +23,7 @@ export default async function ToolsPage() {
           MANAGE YOUR <span className="text-[#FFC400]">ARSENAL</span>
         </h1>
         <p className="text-[#777] text-sm mt-3 max-w-xl font-sans">
-          Register, inspect, and govern the tools available to your AI agents. Only registered tools are tracked by YOROI.
+          Register, inspect, and govern the tools available to your AI agents. Only registered tools are tracked by MoltWall.
         </p>
       </div>
 
@@ -52,7 +52,7 @@ export default async function ToolsPage() {
             <path d="M8 7v4M8 5v1" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
           </svg>
           <p className="text-xs text-[#777] leading-relaxed font-sans">
-            Tool definitions are scanned on registration for prompt injection by YOROI. The <code className="text-[#FFC400] bg-[#FFC400]/10 px-1 py-0.5 rounded text-[11px]">tool_id</code> field is used
+            Tool definitions are scanned on registration for prompt injection by MoltWall. The <code className="text-[#FFC400] bg-[#FFC400]/10 px-1 py-0.5 rounded text-[11px]">tool_id</code> field is used
             to match tools in policy <span className="text-white">allowed_tools</span> and action check requests.
           </p>
         </div>

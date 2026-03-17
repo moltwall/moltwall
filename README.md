@@ -1,10 +1,10 @@
-# YOROI 鎧
+# MoltWall 鎧
 
 **Production-grade security firewall for AI agents.**
 
-> 鎧 (yoroi) — Samurai armor. Full-stack firewall protection for your agents.
+> 鎧 (MoltWall) — Samurai armor. Full-stack firewall protection for your agents.
 
-YOROI acts as a middleware layer between AI agents and external tools (APIs, wallets, browsers, MCP servers). Every agent action is evaluated before execution — returning `allow`, `deny`, `require_confirmation`, or `sandbox`.
+MoltWall acts as a middleware layer between AI agents and external tools (APIs, wallets, browsers, MCP servers). Every agent action is evaluated before execution — returning `allow`, `deny`, `require_confirmation`, or `sandbox`.
 
 ## What It Prevents
 
@@ -22,9 +22,9 @@ YOROI acts as a middleware layer between AI agents and external tools (APIs, wal
 ```
 AI Agent
   ↓
-YOROI SDK
+MoltWall SDK
   ↓
-POST /api/yoroi/check
+POST /api/MoltWall/check
   ↓
 API Key Auth → Rate Limiter → Policy Engine → Risk Engine
   ↓
@@ -57,7 +57,7 @@ Fill in:
 | `SUPABASE_SERVICE_KEY` | Supabase service role key (never expose client-side) |
 | `UPSTASH_REDIS_URL` | Upstash Redis REST URL |
 | `UPSTASH_REDIS_TOKEN` | Upstash Redis REST token |
-| `YOROI_SECRET` | 32+ character secret for internal token signing |
+| `MOLTWALL_SECRET` | 32+ character secret for internal token signing |
 
 ### 3. Run database migration
 
@@ -84,8 +84,8 @@ Full OpenAPI 3.1 spec: [`openapi/spec.yaml`](openapi/spec.yaml)
 ### Core Endpoint
 
 ```http
-POST /api/yoroi/check
-x-api-key: yoroi_live_your_key
+POST /api/MoltWall/check
+x-api-key: moltwall_live_your_key
 Content-Type: application/json
 
 {
@@ -125,11 +125,11 @@ Response:
 ## SDK Usage
 
 ```typescript
-import { Yoroi } from "./sdk/typescript"
+import { MoltWall } from "./sdk/typescript"
 
-const wall = new Yoroi({
-  apiKey: process.env.YOROI_API_KEY!,
-  baseUrl: "https://your-deployment.vercel.app",
+const wall = new MoltWall({
+  apiKey: process.env.MOLTWALL_API_KEY!,
+  baseUrl: "https://www.moltwall.xyz",
 })
 
 // Evaluate an action before executing it
@@ -191,7 +191,7 @@ Policies define allowed behavior — evaluated **deterministically** (no LLM).
 
 ```
 /app
-  /api/yoroi/check        ← Core firewall endpoint
+  /api/MoltWall/check        ← Core firewall endpoint
   /api/agentwall/check    ← Legacy alias (same handler)
   /api/policy             ← Policy CRUD
   /api/tools              ← Tool list
@@ -199,7 +199,7 @@ Policies define allowed behavior — evaluated **deterministically** (no LLM).
   /api/logs               ← Action log query
   /dashboard              ← Admin UI
   /docs                   ← Documentation
-/sdk/typescript           ← YOROI TypeScript SDK
+/sdk/typescript           ← MoltWall TypeScript SDK
 /lib
   /policy-engine          ← Deterministic evaluators
   /risk-engine            ← Weighted scorers

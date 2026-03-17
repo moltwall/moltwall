@@ -5,7 +5,7 @@ import { Navbar } from "@/components/landing/Navbar";
 const FEATURES = [
   {
     kanji: "鎧",
-    reading: "YOROI",
+    reading: "MoltWall",
     title: "Full-Stack Firewall",
     body: "Every agent action passes through a deterministic policy engine before execution. Allow, deny, sandbox, or require confirmation.",
   },
@@ -37,12 +37,12 @@ const FEATURES = [
     kanji: "検",
     reading: "KEN",
     title: "SDK & API",
-    body: "Drop-in TypeScript SDK. One function call integrates YOROI into any MCP agent, LangGraph flow, or custom framework.",
+    body: "Drop-in TypeScript SDK. One function call integrates MoltWall into any MCP agent, LangGraph flow, or custom framework.",
   },
 ];
 
 const HOW_IT_WORKS = [
-  { step: "01", label: "Agent Request", desc: "Your agent calls a tool. The YOROI SDK intercepts the call before execution." },
+  { step: "01", label: "Agent Request", desc: "Your agent calls a tool. The MoltWall SDK intercepts the call before execution." },
   { step: "02", label: "Policy Check", desc: "Tool allowlist, blocked actions, and spend limits are evaluated instantly from Redis cache." },
   { step: "03", label: "Risk Score", desc: "Payload is scored across 8 weighted factors including source provenance and argument analysis." },
   { step: "04", label: "Guardrail Scan", desc: "Prompt injection, credential patterns, and PII are scanned recursively across nested arguments." },
@@ -79,7 +79,7 @@ export default function LandingPage() {
           </h1>
 
           <p className="text-[#777] text-lg max-w-2xl mx-auto leading-relaxed mb-10">
-            YOROI 鎧 is a production-grade security firewall for AI agents. Every tool call evaluated, every threat blocked, every decision audited — in under 10ms.
+            MoltWall 鎧 is a production-grade security firewall for AI agents. Every tool call evaluated, every threat blocked, every decision audited — in under 10ms.
           </p>
 
           <div className="flex items-center justify-center gap-4 flex-wrap">
@@ -149,7 +149,7 @@ export default function LandingPage() {
           <div className="mb-14">
             <p className="text-[11px] font-bold tracking-[0.25em] text-[#FFC400] uppercase font-display mb-3">The Pipeline</p>
             <h2 className="font-display font-black text-white text-[clamp(2rem,5vw,3.5rem)] uppercase leading-tight">
-              HOW YOROI <br />
+              HOW MoltWall <br />
               <span className="text-[#FFC400]">PROTECTS YOU</span>
             </h2>
           </div>
@@ -186,7 +186,7 @@ export default function LandingPage() {
               ONE CALL TO <br /><span className="text-[#FFC400]">FIREWALL</span> YOUR AGENT
             </h2>
             <p className="text-[#666] text-sm leading-relaxed mb-7 max-w-md">
-              Drop the YOROI SDK into any TypeScript agent. Works with Claude MCP, LangChain, AutoGPT, CrewAI, and any custom framework. Zero config firewall in one call.
+              Drop the MoltWall SDK into any TypeScript agent. Works with Claude MCP, LangChain, AutoGPT, CrewAI, and any custom framework. Zero config firewall in one call.
             </p>
             <div className="flex items-center gap-4">
               <Link href="/docs" className="bg-[#FFC400] text-black font-black text-[12px] uppercase tracking-widest px-6 py-3 rounded-xl hover:bg-[#e6b000] transition-colors font-display">
@@ -203,10 +203,10 @@ export default function LandingPage() {
                 <span className="size-3 rounded-full bg-[#22c55e]/60" />
                 <span className="ml-3 text-[11px] text-[#444] font-mono">agent.ts</span>
               </div>
-              <pre className="p-6 text-[13px] font-mono leading-relaxed overflow-x-auto text-[#FFC400]">{`import { Yoroi } from "@yoroi/sdk";
+              <pre className="p-6 text-[13px] font-mono leading-relaxed overflow-x-auto text-[#FFC400]">{`import { MoltWall } from "@MoltWall/sdk";
 
-const wall = new Yoroi({
-  apiKey: process.env.YOROI_API_KEY,
+const wall = new MoltWall({
+  apiKey: process.env.MoltWall_API_KEY,
   agentId: "my-agent-001",
 });
 
@@ -248,7 +248,7 @@ if (result.decision === "allow") {
             YOUR AGENTS. <br /><span className="text-[#FFC400]">FIREWALLED.</span>
           </h2>
           <p className="text-[#666] mb-10 max-w-xl mx-auto leading-relaxed">
-            Deploy YOROI on Vercel in minutes. Open source. TypeScript-native. Production firewall from day one.
+            Deploy MoltWall at www.moltwall.xyz in minutes. Open source. TypeScript-native. Production firewall from day one.
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
             <Link href="/dashboard"
@@ -269,7 +269,7 @@ if (result.decision === "allow") {
 
           {/* Brand */}
           <Link href="/" className="inline-block text-[18px] font-black tracking-[0.2em] font-display text-white hover:text-[#FFC400] transition-colors uppercase">
-            YOROI
+            MoltWall
           </Link>
 
           {/* Separator */}

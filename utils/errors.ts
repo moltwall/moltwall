@@ -15,9 +15,9 @@ export const ErrorCodes = {
 
 export type ErrorCode = (typeof ErrorCodes)[keyof typeof ErrorCodes];
 
-// ─── YOROI Error Class ────────────────────────────────────────────────────────
+// ─── MoltWall Error Class ────────────────────────────────────────────────────────
 
-export class YoroiError extends Error {
+export class MoltWallError extends Error {
   public readonly code: ErrorCode;
   public readonly statusCode: number;
   public readonly details?: unknown;
@@ -29,7 +29,7 @@ export class YoroiError extends Error {
     details?: unknown
   ) {
     super(message);
-    this.name = "YoroiError";
+    this.name = "MoltWallError";
     this.code = code;
     this.statusCode = statusCode;
     this.details = details;
@@ -44,33 +44,33 @@ export class YoroiError extends Error {
   }
 }
 
-/** @deprecated Use YoroiError */
-export const AgentWallError = YoroiError;
+/** @deprecated Use MoltWallError */
+export const AgentWallError = MoltWallError;
 
 // ─── Factory Helpers ──────────────────────────────────────────────────────────
 
 export const Errors = {
   unauthorized: (msg = "Unauthorized") =>
-    new YoroiError(msg, ErrorCodes.UNAUTHORIZED, 401),
+    new MoltWallError(msg, ErrorCodes.UNAUTHORIZED, 401),
 
   notFound: (resource: string) =>
-    new YoroiError(`${resource} not found`, ErrorCodes.NOT_FOUND, 404),
+    new MoltWallError(`${resource} not found`, ErrorCodes.NOT_FOUND, 404),
 
   validation: (msg: string, details?: unknown) =>
-    new YoroiError(msg, ErrorCodes.VALIDATION_ERROR, 422, details),
+    new MoltWallError(msg, ErrorCodes.VALIDATION_ERROR, 422, details),
 
   internal: (msg = "Internal server error") =>
-    new YoroiError(msg, ErrorCodes.INTERNAL_ERROR, 500),
+    new MoltWallError(msg, ErrorCodes.INTERNAL_ERROR, 500),
 
   policyDenied: (reason: string) =>
-    new YoroiError(reason, ErrorCodes.POLICY_DENIED, 403),
+    new MoltWallError(reason, ErrorCodes.POLICY_DENIED, 403),
 } as const;
 
 // ─── Type Guard ───────────────────────────────────────────────────────────────
 
-export function isYoroiError(err: unknown): err is YoroiError {
-  return err instanceof YoroiError;
+export function isMoltWallError(err: unknown): err is MoltWallError {
+  return err instanceof MoltWallError;
 }
 
-/** @deprecated Use isYoroiError */
-export const isAgentWallError = isYoroiError;
+/** @deprecated Use isMoltWallError */
+export const isAgentWallError = isMoltWallError;

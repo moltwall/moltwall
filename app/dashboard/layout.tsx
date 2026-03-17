@@ -16,7 +16,7 @@ export default function DashboardLayout({
               <span className="text-black text-[11px] font-black tracking-tight font-display">鎧</span>
             </div>
             <div>
-              <p className="text-[13px] font-black text-white leading-none tracking-wide font-display">YOROI</p>
+              <p className="text-[13px] font-black text-white leading-none tracking-wide font-display">MoltWall</p>
               <p className="text-[10px] text-[#555] mt-0.5 font-sans">Agent Security Firewall</p>
             </div>
           </div>

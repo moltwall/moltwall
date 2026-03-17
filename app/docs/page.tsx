@@ -113,12 +113,12 @@ export default function DocsPage() {
           <div className="flex items-start gap-4 mb-4">
             <span className="text-5xl font-black text-[#FFC400] leading-none font-display">壁</span>
             <div>
-              <p className="text-[11px] font-bold tracking-[0.25em] text-[#FFC400] uppercase font-display mb-1">YOROI 鎧 Docs v0.1</p>
+              <p className="text-[11px] font-bold tracking-[0.25em] text-[#FFC400] uppercase font-display mb-1">MoltWall 鎧 Docs v0.1</p>
               <H2>Introduction</H2>
             </div>
           </div>
           <Lead>
-            YOROI 鎧 is a production-grade security firewall middleware for AI agents. It sits between your agent and its tools, evaluating every action before execution against configurable policies, risk thresholds, and threat detection guardrails.
+            MoltWall 鎧 is a production-grade security firewall middleware for AI agents. It sits between your agent and its tools, evaluating every action before execution against configurable policies, risk thresholds, and threat detection guardrails.
           </Lead>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 my-6">
             {([
@@ -155,13 +155,13 @@ export default function DocsPage() {
         <Section id="architecture">
           <H2>Architecture</H2>
           <Lead>
-            YOROI is a stateless Next.js API layer backed by Supabase (Postgres) and Upstash Redis. The request path is fully deterministic — the policy engine and risk engine have no model calls.
+            MoltWall is a stateless Next.js API layer backed by Supabase (Postgres) and Upstash Redis. The request path is fully deterministic — the policy engine and risk engine have no model calls.
           </Lead>
           <Code lang="text">{`
   Agent / SDK
       │
       ▼
-  POST /api/yoroi/check
+  POST /api/moltwall/check
       │
       ├── 1. Auth (SHA-256 API key lookup)
       ├── 2. Rate Limit (Redis sliding window, per agent_id)
@@ -194,7 +194,7 @@ export default function DocsPage() {
         {/* ──────────────────────────────────────────────────────────────────── */}
         <Section id="quickstart">
           <H2>Quick Start</H2>
-          <Lead>Get YOROI running locally in under 5 minutes.</Lead>
+          <Lead>Get MoltWall running locally in under 5 minutes.</Lead>
 
           <H3>1. Clone and install</H3>
           <Code lang="bash">{`git clone https://github.com/your-org/agent-wall
@@ -220,7 +220,7 @@ supabase/migrations/001_initial.sql`}</Code>
 # → http://localhost:3000`}</Code>
 
           <H3>5. Send your first check</H3>
-          <Code lang="bash">{`curl -X POST http://localhost:3000/api/yoroi/check \\
+          <Code lang="bash">{`curl -X POST http://localhost:3000/api/moltwall/check \\
   -H "Content-Type: application/json" \\
   -H "x-api-key: YOUR_API_KEY" \\
   -d '{
@@ -231,13 +231,13 @@ supabase/migrations/001_initial.sql`}</Code>
     "source": "user"
   }'`}</Code>
           <Callout type="info">
-            If no policy is configured, YOROI runs in permissive mode — all tools allowed, decisions based on risk score only.
+            If no policy is configured, MoltWall runs in permissive mode — all tools allowed, decisions based on risk score only.
           </Callout>
         </Section>
 
         {/* ──────────────────────────────────────────────────────────────────── */}
         <Section id="check-api">
-          <H2>POST /api/yoroi/check</H2>
+          <H2>POST /api/moltwall/check</H2>
           <Lead>
             The primary endpoint. Evaluates an agent action against policies, risk scoring, and guardrails. Returns a decision in milliseconds.
           </Lead>
@@ -272,11 +272,11 @@ supabase/migrations/001_initial.sql`}</Code>
 }`}</Code>
 
           <H3>Example</H3>
-          <Code lang="typescript">{`const res = await fetch("/api/yoroi/check", {
+          <Code lang="typescript">{`const res = await fetch("/api/moltwall/check", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-    "x-api-key": process.env.YOROI_API_KEY,
+    "x-api-key": process.env.MoltWall_API_KEY,
   },
   body: JSON.stringify({
     agent_id: "agent-001",
@@ -305,7 +305,7 @@ const { decision, risk_score, reason } = await res.json();`}</Code>
 
         {/* ──────────────────────────────────────────────────────────────────── */}
         <Section id="scan-api">
-          <H2>POST /api/yoroi/scan</H2>
+          <H2>POST /api/MoltWall/scan</H2>
           <Lead>
             Run only the guardrail engine on arbitrary content. Useful for scanning tool outputs, web pages, or user messages before feeding them to agents.
           </Lead>
@@ -375,7 +375,7 @@ const { decision, risk_score, reason } = await res.json();`}</Code>
         {/* ──────────────────────────────────────────────────────────────────── */}
         <Section id="tools-api">
           <H2>GET /api/tools · POST /api/tools/register</H2>
-          <Lead>List registered tools or register a new tool with YOROI.</Lead>
+          <Lead>List registered tools or register a new tool with MoltWall.</Lead>
 
           <H3>Register a tool</H3>
           <Code lang="typescript">{`await fetch("/api/tools/register", {
@@ -503,14 +503,14 @@ CacheKeys.rateLimit(agentId)  // → "rl:agent:<id>"`}</Code>
         {/* ──────────────────────────────────────────────────────────────────── */}
         <Section id="sdk-install">
           <H2>SDK — Installation</H2>
-          <Lead>The YOROI SDK is a thin TypeScript client that wraps the REST API.</Lead>
-          <Code lang="bash">{`npm install @yoroi/sdk
-# or: pnpm add @yoroi/sdk`}</Code>
-          <Code lang="typescript">{`import { Yoroi } from "@yoroi/sdk";
+          <Lead>The MoltWall SDK is a thin TypeScript client that wraps the REST API.</Lead>
+          <Code lang="bash">{`npm install @MoltWall/sdk
+# or: pnpm add @MoltWall/sdk`}</Code>
+          <Code lang="typescript">{`import { MoltWall } from "@MoltWall/sdk";
 
-const wall = new Yoroi({
-  baseUrl: "https://your-yoroi.vercel.app",
-  apiKey:  process.env.YOROI_API_KEY!,
+const wall = new MoltWall({
+  baseUrl: "https://your-MoltWall.vercel.app",
+  apiKey:  process.env.MoltWall_API_KEY!,
   agentId: "my-agent",  // default agent_id for all checks
 });`}</Code>
         </Section>
@@ -573,14 +573,14 @@ switch (result.decision) {
           <Lead>All API endpoints require an <InlineCode>x-api-key</InlineCode> header. Keys are stored SHA-256 hashed in Supabase.</Lead>
           <Code lang="typescript">{`// Every request:
 headers: {
-  "x-api-key": "yoroi_live_your_key_here"
+  "x-api-key": "MoltWall_live_your_key_here"
 }`}</Code>
           <Callout type="danger">
             Never expose API keys in client-side code. Always use environment variables and server-side calls.
           </Callout>
           <H3>Key format</H3>
-          <p className="text-sm text-[#888]">Keys follow the pattern <InlineCode>yoroi_live_&lt;random-32-bytes-hex&gt;</InlineCode>. Generate with:</p>
-          <Code lang="bash">{`node -e "console.log('yoroi_live_' + require('crypto').randomBytes(32).toString('hex'))"`}</Code>
+          <p className="text-sm text-[#888]">Keys follow the pattern <InlineCode>MoltWall_live_&lt;random-32-bytes-hex&gt;</InlineCode>. Generate with:</p>
+          <Code lang="bash">{`node -e "console.log('MoltWall_live_' + require('crypto').randomBytes(32).toString('hex'))"`}</Code>
         </Section>
 
         {/* ──────────────────────────────────────────────────────────────────── */}
@@ -618,7 +618,7 @@ headers: {
         {/* ──────────────────────────────────────────────────────────────────── */}
         <Section id="threat-model">
           <H2>Threat Model</H2>
-          <Lead>YOROI is designed to defend against these threat vectors:</Lead>
+          <Lead>MoltWall is designed to defend against these threat vectors:</Lead>
           <div className="space-y-3 my-4">
             {[
               { kanji: "注", label: "Prompt Injection", desc: "User or tool output crafted to override agent instructions. Detected by the injection scanner on all string values in args." },
@@ -650,7 +650,7 @@ headers: {
               ["SUPABASE_SERVICE_ROLE_KEY", "✓", "Service role key (server-side only)"],
               ["UPSTASH_REDIS_REST_URL", "✓", "Upstash Redis REST endpoint"],
               ["UPSTASH_REDIS_REST_TOKEN", "✓", "Upstash Redis REST token"],
-              ["YOROI_MASTER_KEY", "✗", "Admin API key for dashboard access"],
+              ["MoltWall_MASTER_KEY", "✗", "Admin API key for dashboard access"],
             ]}
           />
           <Callout type="danger">
@@ -661,7 +661,7 @@ headers: {
         {/* ──────────────────────────────────────────────────────────────────── */}
         <Section id="vercel">
           <H2>Deploy to Vercel</H2>
-          <Lead>YOROI is designed to deploy on Vercel with zero configuration changes.</Lead>
+          <Lead>MoltWall is designed to deploy on Vercel with zero configuration changes.</Lead>
           <Code lang="bash">{`# 1. Push to GitHub
 git push origin main
 
@@ -676,7 +676,7 @@ git push origin main
         {/* ──────────────────────────────────────────────────────────────────── */}
         <Section id="supabase">
           <H2>Supabase Setup</H2>
-          <Lead>YOROI requires five tables in Supabase Postgres.</Lead>
+          <Lead>MoltWall requires five tables in Supabase Postgres.</Lead>
           <Table
             headers={["Table", "Purpose"]}
             rows={[

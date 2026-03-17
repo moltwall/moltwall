@@ -1,7 +1,7 @@
 /**
- * POST /api/yoroi/check
+ * POST /api/MoltWall/check
  *
- * YOROI 鎧 — Core firewall endpoint. Evaluates every agent action through a
+ * MoltWall 鎧 — Core firewall endpoint. Evaluates every agent action through a
  * layered security pipeline before returning a decision.
  *
  * Pipeline:

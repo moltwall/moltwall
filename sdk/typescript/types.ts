@@ -1,4 +1,4 @@
-// YOROI TypeScript SDK — Public Type Definitions
+// MoltWall TypeScript SDK — Public Type Definitions
 
 export type DecisionType = "allow" | "deny" | "require_confirmation" | "sandbox";
 
@@ -72,31 +72,31 @@ export interface SDKActionLog {
   timestamp: string;
 }
 
-export interface YoroiConfig {
-  /** Your YOROI API key */
+export interface MoltWallConfig {
+  /** Your MoltWall API key */
   apiKey: string;
-  /** Base URL of your YOROI deployment (default: http://localhost:3000) */
+  /** Base URL of your MoltWall deployment (default: http://localhost:3000) */
   baseUrl?: string;
   /** Request timeout in milliseconds (default: 10000) */
   timeout?: number;
 }
 
-/** @deprecated Use YoroiConfig */
-export type AgentWallConfig = YoroiConfig;
+/** @deprecated Use MoltWallConfig */
+export type AgentWallConfig = MoltWallConfig;
 
 // ─── SDK Error ────────────────────────────────────────────────────────────────
 
-export class YoroiSDKError extends Error {
+export class MoltWallSDKError extends Error {
   public readonly statusCode: number;
   public readonly code: string;
 
   constructor(message: string, statusCode: number, code: string) {
     super(message);
-    this.name = "YoroiSDKError";
+    this.name = "MoltWallSDKError";
     this.statusCode = statusCode;
     this.code = code;
   }
 }
 
-/** @deprecated Use YoroiSDKError */
-export const AgentWallSDKError = YoroiSDKError;
+/** @deprecated Use MoltWallSDKError */
+export const AgentWallSDKError = MoltWallSDKError;

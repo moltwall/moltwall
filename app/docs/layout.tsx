@@ -10,7 +10,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
             <div className="size-6 rounded-md bg-[#FFC400] flex items-center justify-center shadow-[0_0_10px_rgba(255,196,0,0.2)]">
               <span className="text-black text-[11px] font-black font-display">鎧</span>
             </div>
-            <span className="text-[12px] font-black tracking-[0.18em] font-display text-white">YOROI</span>
+            <span className="text-[12px] font-black tracking-[0.18em] font-display text-white">MoltWall</span>
           </Link>
           <span className="text-[#222] font-mono">/</span>
           <span className="text-[11px] font-black text-[#FFC400] tracking-[0.15em] font-display uppercase">Docs</span>

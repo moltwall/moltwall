@@ -1,18 +1,18 @@
 /**
- * YOROI 鎧 TypeScript SDK
+ * MoltWall 鎧 TypeScript SDK
  * Agent Security Firewall — full-stack protection for your AI agents.
  *
  * Usage:
- *   import { Yoroi } from "./sdk/typescript"
+ *   import { MoltWall } from "./sdk/typescript"
  *
- *   const wall = new Yoroi({ apiKey: process.env.YOROI_API_KEY })
+ *   const wall = new MoltWall({ apiKey: process.env.MoltWall_API_KEY })
  *   const result = await wall.check({ agent_id: "agent-1", action: "transfer", tool: "wallet", args: { amount: 100 } })
  *   if (result.decision !== "allow") throw new Error(`Blocked: ${result.reason}`)
  */
 
 import {
-  YoroiConfig,
-  YoroiSDKError,
+  MoltWallConfig,
+  MoltWallSDKError,
   SDKCheckRequest,
   SDKCheckResponse,
   SDKRegisterToolRequest,
@@ -20,9 +20,9 @@ import {
   SDKActionLog,
 } from "./types";
 
-export { YoroiSDKError, AgentWallSDKError } from "./types";
+export { MoltWallSDKError, AgentWallSDKError } from "./types";
 export type {
-  YoroiConfig,
+  MoltWallConfig,
   SDKCheckRequest,
   SDKCheckResponse,
   SDKRegisterToolRequest,
@@ -36,15 +36,15 @@ export type {
 const DEFAULT_BASE_URL = "http://localhost:3000";
 const DEFAULT_TIMEOUT = 10_000;
 
-export class Yoroi {
+export class MoltWall {
   private readonly apiKey: string;
   private readonly baseUrl: string;
   private readonly timeout: number;
 
-  constructor(config: YoroiConfig) {
+  constructor(config: MoltWallConfig) {
     if (!config.apiKey || config.apiKey.trim().length === 0) {
-      throw new YoroiSDKError(
-        "YOROI requires an apiKey. Get one from your YOROI dashboard.",
+      throw new MoltWallSDKError(
+        "MoltWall requires an apiKey. Get one from your MoltWall dashboard.",
         0,
         "MISSING_API_KEY"
       );
@@ -62,7 +62,7 @@ export class Yoroi {
    *
    * @param request - The action to evaluate
    * @returns A decision with risk score and reason
-   * @throws YoroiSDKError on API errors
+   * @throws MoltWallSDKError on API errors
    *
    * @example
    * const result = await wall.check({
@@ -88,13 +88,13 @@ export class Yoroi {
       user_intent: request.user_intent,
     };
 
-    return this.post<SDKCheckResponse>("/api/yoroi/check", body);
+    return this.post<SDKCheckResponse>("/api/MoltWall/check", body);
   }
 
   // ─── registerTool() ──────────────────────────────────────────────────────────
 
   /**
-   * Registers a tool in the YOROI tool registry.
+   * Registers a tool in the MoltWall tool registry.
    * Registered tools receive their configured risk level instead of "unknown tool" penalty.
    *
    * @example
@@ -119,7 +119,7 @@ export class Yoroi {
   // ─── getLogs() ───────────────────────────────────────────────────────────────
 
   /**
-   * Fetches paginated action logs from your YOROI deployment.
+   * Fetches paginated action logs from your MoltWall deployment.
    *
    * @example
    * const logs = await wall.getLogs({ decision: "deny", limit: 20 })
@@ -159,10 +159,10 @@ export class Yoroi {
 
       return this.handleResponse<T>(response);
     } catch (err) {
-      if (err instanceof YoroiSDKError) throw err;
+      if (err instanceof MoltWallSDKError) throw err;
       const message = err instanceof Error ? err.message : "Network error";
-      throw new YoroiSDKError(
-        `YOROI request failed: ${message}`,
+      throw new MoltWallSDKError(
+        `MoltWall request failed: ${message}`,
         0,
         "NETWORK_ERROR"
       );
@@ -186,10 +186,10 @@ export class Yoroi {
 
       return this.handleResponse<T>(response);
     } catch (err) {
-      if (err instanceof YoroiSDKError) throw err;
+      if (err instanceof MoltWallSDKError) throw err;
       const message = err instanceof Error ? err.message : "Network error";
-      throw new YoroiSDKError(
-        `YOROI request failed: ${message}`,
+      throw new MoltWallSDKError(
+        `MoltWall request failed: ${message}`,
         0,
         "NETWORK_ERROR"
       );
@@ -210,7 +210,7 @@ export class Yoroi {
       // Non-JSON error body
     }
 
-    throw new YoroiSDKError(
+    throw new MoltWallSDKError(
       errorBody.error ?? `HTTP ${response.status}`,
       response.status,
       errorBody.code ?? "HTTP_ERROR"
@@ -218,5 +218,5 @@ export class Yoroi {
   }
 }
 
-/** @deprecated Use Yoroi */
-export const AgentWall = Yoroi;
+/** @deprecated Use MoltWall */
+export const AgentWall = MoltWall;

@@ -1,7 +1,7 @@
 /**
- * POST /api/agentwall/check  (legacy alias → prefer /api/yoroi/check)
+ * POST /api/agentwall/check  (legacy alias → prefer /api/MoltWall/check)
  *
- * YOROI 鎧 core firewall endpoint. Evaluates every agent action through a
+ * MoltWall 鎧 core firewall endpoint. Evaluates every agent action through a
  * layered security pipeline before returning a decision.
  *
  * Pipeline:

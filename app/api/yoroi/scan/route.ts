@@ -1,7 +1,7 @@
 /**
- * POST /api/yoroi/scan
+ * POST /api/MoltWall/scan
  *
- * YOROI 鎧 — Standalone content scanner for tool outputs, LLM responses, and user inputs.
+ * MoltWall 鎧 — Standalone content scanner for tool outputs, LLM responses, and user inputs.
  */
 
 // Re-export everything from the original route — single source of truth

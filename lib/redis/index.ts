@@ -158,8 +158,8 @@ export async function getCachedEnvelope<T>(
 // ─── Cache Key Builders ──────────────────────────────────────────────────────
 
 export const CacheKeys = {
-  policy: (orgId: string) => `yoroi:policy:v1:${orgId}`,
-  tool: (toolId: string) => `yoroi:tool:${toolId}`,
-  toolList: () => `yoroi:tools:all`,
-  rateLimit: (agentId: string) => `yoroi:ratelimit:${agentId}`,
+  policy: (orgId: string) => `moltwall:policy:v1:${orgId}`,
+  tool: (toolId: string) => `moltwall:tool:${toolId}`,
+  toolList: () => `moltwall:tools:all`,
+  rateLimit: (agentId: string) => `moltwall:ratelimit:${agentId}`,
 } as const;

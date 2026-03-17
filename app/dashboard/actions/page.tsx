@@ -28,7 +28,7 @@ export default async function ActionsPage() {
           EVERY ACTION: <span className="text-[#FFC400]">LOGGED</span>
         </h1>
         <p className="text-[#777] text-sm mt-3 max-w-xl font-sans">
-          Complete audit trail of every agent action evaluated by YOROI 鎧. Click any row to inspect arguments and threat details.
+          Complete audit trail of every agent action evaluated by MoltWall 鎧. Click any row to inspect arguments and threat details.
         </p>
       </div>
 

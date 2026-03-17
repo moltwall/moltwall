@@ -54,7 +54,7 @@ export default async function DashboardPage() {
           MONITOR YOUR <span className="text-[#FFC400]">AGENTS</span>
         </h1>
         <p className="text-[#777] text-sm mt-3 max-w-xl font-sans">
-          Real-time evaluation of every agent action by YOROI 鎧. Every request scored, every threat blocked, every decision logged.
+          Real-time evaluation of every agent action by MoltWall 鎧. Every request scored, every threat blocked, every decision logged.
         </p>
       </div>
 
@@ -112,7 +112,7 @@ export default async function DashboardPage() {
                 <div className="py-16 text-center">
                   <p className="font-display text-xl font-bold text-[#222] uppercase">No Data Yet</p>
                   <p className="text-[#555] text-sm mt-2 font-sans">
-                    Send a request to <code className="bg-[#1a1a1a] text-[#FFC400] px-1.5 py-0.5 rounded text-xs">POST /api/yoroi/check</code>
+                    Send a request to <code className="bg-[#1a1a1a] text-[#FFC400] px-1.5 py-0.5 rounded text-xs">POST /api/MoltWall/check</code>
                   </p>
                 </div>
               ) : (
@@ -186,8 +186,8 @@ export default async function DashboardPage() {
               <h2 className="font-display text-base font-bold text-white uppercase tracking-wider mb-4">Quick Start</h2>
               <div className="card p-4">
                 <p className="text-[10px] font-bold tracking-widest text-[#555] uppercase mb-2">API Request</p>
-                <pre className="text-xs text-[#FFC400] font-mono leading-relaxed overflow-x-auto bg-[#0a0a0a] rounded-lg p-3 border border-[#1e1e1e]">{`curl -X POST /api/yoroi/check \\
-  -H "x-api-key: yoroi_key" \\
+                <pre className="text-xs text-[#FFC400] font-mono leading-relaxed overflow-x-auto bg-[#0a0a0a] rounded-lg p-3 border border-[#1e1e1e]">{`curl -X POST /api/MoltWall/check \\
+  -H "x-api-key: MoltWall_key" \\
   -d '{
     "agent_id": "agent-001",
     "action": "transfer",

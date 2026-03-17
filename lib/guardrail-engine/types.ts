@@ -54,7 +54,7 @@ export interface GuardrailResult {
   scanner_results: ScannerResult[];
 }
 
-// ─── Scan Request (for /api/yoroi/scan) ───────────────────────────────────────
+// ─── Scan Request (for /api/moltwall/scan) ───────────────────────────────────────
 
 export type ScanContentType =
   | "tool_output"    // Output from an external tool

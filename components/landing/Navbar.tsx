@@ -44,7 +44,7 @@ export function Navbar() {
               <span className="text-black text-[13px] font-black font-display leading-none">鎧</span>
             </div>
             <span className="text-[14px] font-black tracking-[0.16em] font-display text-white whitespace-nowrap truncate">
-              YOROI <span className="text-[#444] font-normal tracking-normal mx-1.5">|</span> <span className="text-[#666] font-sans text-[12px] font-medium tracking-wide normal-case">AI Agent Security Firewall</span>
+              MoltWall <span className="text-[#444] font-normal tracking-normal mx-1.5">|</span> <span className="text-[#666] font-sans text-[12px] font-medium tracking-wide normal-case">AI Agent Security Firewall</span>
             </span>
           </Link>
 

@@ -207,7 +207,7 @@ export function runGuardrails(
 }
 
 /**
- * Scans raw string or object content — used by the /api/yoroi/scan endpoint
+ * Scans raw string or object content — used by the /api/moltwall/scan endpoint
  * to inspect tool outputs and LLM responses.
  */
 export function scanContent(
