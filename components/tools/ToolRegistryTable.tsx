@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import type { Tool } from "@/types";
+import { LocalDB } from "@/lib/local-db";
 
 interface ToolRegistryTableProps { initialTools: Tool[]; }
 
 const RISK_STYLES: Record<string, { bg: string; text: string; border: string }> = {
-  low:    { bg: "#22c55e18", text: "#22c55e", border: "#22c55e40" },
+  low: { bg: "#22c55e18", text: "#22c55e", border: "#22c55e40" },
   medium: { bg: "#FFC40018", text: "#FFC400", border: "#FFC40040" },
-  high:   { bg: "#ef444418", text: "#ef4444", border: "#ef444440" },
+  high: { bg: "#ef444418", text: "#ef4444", border: "#ef444440" },
 };
 
 export function ToolRegistryTable({ initialTools }: ToolRegistryTableProps) {
@@ -32,14 +33,29 @@ export function ToolRegistryTable({ initialTools }: ToolRegistryTableProps) {
     setSaving(true); setError(null); setSuccess(false);
     try {
       const perms = form.permissions.split(",").map((s) => s.trim()).filter(Boolean);
-      const body = { tool_id: form.tool_id, description: form.description, publisher: form.publisher, permissions: perms, risk_level: form.risk_level };
-      const res = await fetch("/api/tools/register", { method: "POST", headers: { "Content-Type": "application/json", "x-api-key": "" }, body: JSON.stringify(body) });
-      if (!res.ok) {
-        const j = await res.json().catch(() => ({})) as { error?: string };
-        throw new Error(j.error ?? `HTTP ${res.status}`);
-      }
-      const j = await res.json() as { tool: Tool };
-      setTools((prev) => [j.tool, ...prev.filter((t) => t.tool_id !== j.tool.tool_id)]);
+
+      const newLocalTool = {
+        id: form.tool_id,
+        name: form.tool_id,
+        description: form.description,
+        risk_level: form.risk_level,
+        status: "active" as const,
+        category: "system" as const,
+      };
+
+      LocalDB.addTool(newLocalTool);
+
+      const mappedTool: Tool = {
+        tool_id: newLocalTool.id,
+        publisher: form.publisher,
+        permissions: perms,
+        risk_level: newLocalTool.risk_level,
+        schema_hash: null,
+        description: newLocalTool.description,
+        created_at: new Date().toISOString(),
+      };
+
+      setTools((prev) => [mappedTool, ...prev.filter((t) => t.tool_id !== mappedTool.tool_id)]);
       setForm({ tool_id: "", description: "", publisher: "", permissions: "", risk_level: "low" });
       setSuccess(true);
       setTimeout(() => setSuccess(false), 3000);

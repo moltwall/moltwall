@@ -23,7 +23,7 @@ export function BrandLogo({
   const content =
     variant === "full" ? (
       <span
-        className="inline-flex flex-col items-start min-w-0"
+        className="inline-flex flex-col items-center min-w-0"
         style={{ gap: withTagline ? "2px" : "0" }}
       >
         {/* Logo image — horizontal, fixed height, auto width */}

@@ -12,7 +12,7 @@ export default function DashboardLayout({
       <aside className="w-52 shrink-0 border-r border-[#1e1e1e] bg-black flex flex-col sticky top-0 h-screen">
         {/* Logo */}
         <div className="px-5 py-5 border-b border-[#1e1e1e]">
-          <BrandLogo variant="full" size="sm" />
+          <BrandLogo variant="full" size="md" />
         </div>
 
         {/* Nav */}

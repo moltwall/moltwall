@@ -38,14 +38,14 @@ function decisionForScore(score: number, a: number, s: number, d: number): Decis
 
 function getInitial(policy: Policy | null): PolicyFormValues {
   return {
-    allowed_tools:          policy?.allowed_tools        ?? [],
-    blocked_actions:        policy?.blocked_actions       ?? [],
-    trusted_domains:        policy?.trusted_domains       ?? [],
-    sensitive_actions:      policy?.sensitive_actions     ?? ["payment", "transfer", "delete", "withdraw", "send"],
-    max_spend_usd:          policy?.max_spend_usd         ?? null,
-    risk_threshold_allow:   policy?.risk_threshold_allow   ?? 0.3,
+    allowed_tools: policy?.allowed_tools ?? [],
+    blocked_actions: policy?.blocked_actions ?? [],
+    trusted_domains: policy?.trusted_domains ?? [],
+    sensitive_actions: policy?.sensitive_actions ?? ["payment", "transfer", "delete", "withdraw", "send"],
+    max_spend_usd: policy?.max_spend_usd ?? null,
+    risk_threshold_allow: policy?.risk_threshold_allow ?? 0.3,
     risk_threshold_sandbox: policy?.risk_threshold_sandbox ?? 0.6,
-    risk_threshold_deny:    policy?.risk_threshold_deny    ?? 0.8,
+    risk_threshold_deny: policy?.risk_threshold_deny ?? 0.8,
   };
 }
 
@@ -131,19 +131,19 @@ function Section({ title, badge, badgeColor = "#777", desc, children }: {
   title: string; badge?: string; badgeColor?: string; desc: string; children: React.ReactNode;
 }) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-5 py-5 border-b border-[#1e1e1e] last:border-0">
+    <div className="group grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-6 p-6 border-b border-[#1a1a1a] last:border-0 hover:bg-[#111] transition-colors duration-500">
       <div>
         <div className="flex items-center gap-2 flex-wrap">
-          <h3 className="font-display text-sm font-bold text-white uppercase tracking-wider">{title}</h3>
+          <h3 className="font-display text-sm font-bold text-white uppercase tracking-wider group-hover:text-[#FFC400] transition-colors">{title}</h3>
           {badge && (
             <span className="tag text-[11px]" style={{ color: badgeColor, borderColor: `${badgeColor}40`, background: `${badgeColor}18` }}>
               {badge}
             </span>
           )}
         </div>
-        <p className="text-xs text-[#666] mt-1.5 leading-relaxed font-sans">{desc}</p>
+        <p className="text-xs text-[#666] mt-2 leading-relaxed font-sans">{desc}</p>
       </div>
-      <div className="card-sm p-4">{children}</div>
+      <div className="bg-[#050505] p-5 rounded-xl border border-[#1e1e1e] shadow-inner">{children}</div>
     </div>
   );
 }
@@ -161,6 +161,14 @@ export function PolicyEditor({ policy, onSave, onDelete }: PolicyEditorProps) {
   const [confirmDel, setConfirmDel] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [simScore, setSimScore] = useState("0.50");
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    const jsonToCopy = JSON.stringify({ ...values, risk_threshold_allow: tA, risk_threshold_sandbox: tS, risk_threshold_deny: tD }, null, 2);
+    navigator.clipboard.writeText(jsonToCopy);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const [ta, setTa] = useState(String(initial.risk_threshold_allow));
   const [ts, setTs] = useState(String(initial.risk_threshold_sandbox));
@@ -213,9 +221,8 @@ export function PolicyEditor({ policy, onSave, onDelete }: PolicyEditorProps) {
         <div className="flex gap-1 bg-[#111] border border-[#1e1e1e] rounded-lg p-1">
           {(["editor", "json"] as Tab[]).map((t) => (
             <button key={t} type="button" onClick={() => setTab(t)}
-              className={`px-4 py-1.5 text-xs font-bold uppercase tracking-wider rounded-md transition-all font-sans ${
-                tab === t ? "bg-[#FFC400] text-black" : "text-[#666] hover:text-white"
-              }`}>
+              className={`px-4 py-1.5 text-xs font-bold uppercase tracking-wider rounded-md transition-all font-sans ${tab === t ? "bg-[#FFC400] text-black" : "text-[#666] hover:text-white"
+                }`}>
               {t === "json" ? "JSON" : "Editor"}
             </button>
           ))}
@@ -263,8 +270,8 @@ export function PolicyEditor({ policy, onSave, onDelete }: PolicyEditorProps) {
       {/* JSON tab */}
       {tab === "json" && (
         <div className="relative">
-          <button onClick={() => void navigator.clipboard.writeText(jsonPreview)}
-            className="absolute top-3 right-3 btn-ghost text-xs z-10">Copy</button>
+          <button type="button" onClick={handleCopy}
+            className="absolute top-3 right-3 btn-ghost text-xs z-10">{copied ? "Copied!" : "Copy"}</button>
           <pre className="text-xs text-[#FFC400] bg-[#0a0a0a] rounded-xl border border-[#2a2a2a] p-5 overflow-x-auto font-mono leading-relaxed">{jsonPreview}</pre>
         </div>
       )}
@@ -368,7 +375,7 @@ export function PolicyEditor({ policy, onSave, onDelete }: PolicyEditorProps) {
               {saving ? (
                 <span className="flex items-center gap-2">
                   <svg className="animate-spin size-3.5" viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeDasharray="60" strokeDashoffset="20"/>
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeDasharray="60" strokeDashoffset="20" />
                   </svg>
                   Saving…
                 </span>
@@ -376,7 +383,7 @@ export function PolicyEditor({ policy, onSave, onDelete }: PolicyEditorProps) {
             </button>
             {status === "success" && (
               <span className="text-sm text-[#22c55e] flex items-center gap-1.5 font-sans">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
                 Saved
               </span>
             )}
