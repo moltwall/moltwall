@@ -53,6 +53,19 @@ export function Navbar() {
               TRY DEMO
             </DashboardButton>
 
+            {/* X / Twitter */}
+            <a
+              href="https://x.com/usemoltwall"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Follow on X"
+              className="size-10 flex items-center justify-center rounded-xl border border-[#2a2a2a] text-[#666] hover:text-white hover:border-[#444] transition-all"
+            >
+              <svg width="14" height="14" viewBox="0 0 1200 1227" fill="currentColor">
+                <path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.163 519.284ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.828Z"/>
+              </svg>
+            </a>
+
             {/* Hamburger */}
             <button
               onClick={() => setOpen((v) => !v)}

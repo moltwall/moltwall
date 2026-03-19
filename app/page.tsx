@@ -60,6 +60,58 @@ export default function LandingPage() {
   const [threatsBlocked, setThreatsBlocked] = useState(calcThreats);
   const [logs, setLogs] = useState<{ id: number; agent: string; tool: string; action: string; time: string; status: "ALLOW" | "BLOCK" | "SANDBOX" }[]>([]);
   const [copied, setCopied] = useState(false);
+  const [activeInstance, setActiveInstance] = useState(0);
+  const [instanceOpen, setInstanceOpen] = useState(false);
+  const [connecting, setConnecting] = useState(false);
+  const [connectSteps, setConnectSteps] = useState<{ text: string; done: boolean; final?: boolean }[]>([]);
+
+  const INSTANCES = [
+    { id: "prod-firewall-us-east-1",  region: "N. Virginia", flag: "🇺🇸" },
+    { id: "prod-firewall-us-west-2",  region: "Oregon",      flag: "🇺🇸" },
+    { id: "prod-firewall-eu-west-1",  region: "Ireland",     flag: "🇪🇺" },
+    { id: "prod-firewall-ap-south-1", region: "Mumbai",      flag: "🇮🇳" },
+    { id: "prod-firewall-ap-east-1",  region: "Tokyo",       flag: "🇯🇵" },
+  ];
+
+  function switchInstance(i: number) {
+    if (i === activeInstance || connecting) { setInstanceOpen(false); return; }
+    setInstanceOpen(false);
+    setConnecting(true);
+    setLogs([]);
+    setConnectSteps([]);
+
+    const inst = INSTANCES[i]!;
+    const steps = [
+      `Establishing secure tunnel to ${inst.id}`,
+      `Authenticating API credentials`,
+      `Loading policy engine · 89 active rules`,
+      `Syncing Redis cache · 4,213 agent contexts`,
+      `Attaching to audit log stream`,
+    ];
+
+    steps.forEach((text, idx) => {
+      setTimeout(() => {
+        setConnectSteps(prev => [...prev, { text, done: false }]);
+        setTimeout(() => {
+          setConnectSteps(prev => prev.map((s, si) => si === idx ? { ...s, done: true } : s));
+        }, 260);
+      }, idx * 400);
+    });
+
+    const totalMs = steps.length * 400 + 350;
+    setTimeout(() => {
+      const latency = Math.floor(Math.random() * 14) + 5;
+      setConnectSteps(prev => [
+        ...prev,
+        { text: `Connection established · latency: ${latency}ms`, done: true, final: true },
+      ]);
+      setTimeout(() => {
+        setActiveInstance(i);
+        setConnecting(false);
+        setConnectSteps([]);
+      }, 700);
+    }, totalMs);
+  }
 
   const CA = process.env.NEXT_PUBLIC_CA ?? "";
   const showCA = process.env.NEXT_PUBLIC_SHOW_CA === "true" && !!CA;
@@ -69,6 +121,16 @@ export default function LandingPage() {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }
+
+  useEffect(() => {
+    if (!instanceOpen) return;
+    function handle(e: MouseEvent) {
+      const target = e.target as HTMLElement;
+      if (!target.closest("[data-instance-menu]")) setInstanceOpen(false);
+    }
+    document.addEventListener("mousedown", handle);
+    return () => document.removeEventListener("mousedown", handle);
+  }, [instanceOpen]);
 
   useEffect(() => {
     // On mount: take the higher of the time-based value or what's stored
@@ -229,15 +291,68 @@ export default function LandingPage() {
                   <div className="w-3 h-3 rounded-full bg-[#FFC400]/80 shadow-[0_0_8px_rgba(255,196,0,0.5)] hover:bg-[#FFC400] transition-colors cursor-pointer" />
                   <div className="w-3 h-3 rounded-full bg-green-500/80 shadow-[0_0_8px_rgba(34,197,94,0.5)] hover:bg-green-400 transition-colors cursor-pointer" />
                 </div>
-                <div className="flex text-[11px] font-mono text-[#666] items-center gap-2 uppercase tracking-widest font-bold">
-                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,1)]" />
-                  prod-firewall-us-east-1
+                <div className="relative" data-instance-menu>
+                  <button
+                    onClick={() => setInstanceOpen(v => !v)}
+                    className="flex items-center gap-2 text-[11px] font-mono text-[#666] hover:text-[#999] uppercase tracking-widest font-bold transition-colors group"
+                  >
+                    <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${connecting ? "bg-[#FFC400] shadow-[0_0_8px_rgba(255,196,0,0.8)]" : "bg-green-500 shadow-[0_0_8px_rgba(34,197,94,1)]"}`} />
+                    {connecting ? "CONNECTING..." : INSTANCES[activeInstance]?.id}
+                    <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className={`transition-transform duration-200 ${instanceOpen ? "rotate-180" : ""}`}>
+                      <path d="M1 2.5l3 3 3-3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+
+                  {instanceOpen && (
+                    <div className="absolute right-0 top-full mt-2 w-64 bg-[#0a0a0a] border border-[#2a2a2a] rounded-xl overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.8)] z-50">
+                      {INSTANCES.map((inst, i) => (
+                        <button
+                          key={inst.id}
+                          onClick={() => switchInstance(i)}
+                          className={`w-full flex items-center justify-between px-4 py-2.5 text-left transition-colors hover:bg-[#111] ${i === activeInstance ? "bg-[#111]" : ""}`}
+                        >
+                          <div className="flex items-center gap-2.5">
+                            <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${i === activeInstance ? "bg-green-500 shadow-[0_0_6px_rgba(34,197,94,0.8)]" : "bg-[#333]"}`} />
+                            <div>
+                              <p className={`text-[10px] font-mono font-bold uppercase tracking-wider ${i === activeInstance ? "text-[#FFC400]" : "text-[#666]"}`}>{inst.id}</p>
+                              <p className="text-[9px] text-[#444] font-mono mt-0.5">{inst.flag} {inst.region}</p>
+                            </div>
+                          </div>
+                          {i === activeInstance && (
+                            <span className="text-[9px] font-bold text-green-500 uppercase tracking-wider">active</span>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
 
               {/* Terminal Body */}
               <div className="flex-1 p-5 overflow-hidden font-mono text-xs flex flex-col relative w-full">
 
+                {connecting ? (
+                  /* ── Connection sequence ── */
+                  <div className="flex-1 flex flex-col justify-center gap-2 px-1">
+                    {connectSteps.map((step, i) => (
+                      <div key={i} className="flex items-center gap-3 animate-in fade-in slide-in-from-bottom-1 duration-200">
+                        <span className="text-[#444] shrink-0">›</span>
+                        <span className={`flex-1 ${step.final ? "text-green-400" : "text-[#666]"}`}>{step.text}</span>
+                        {step.done && !step.final && (
+                          <span className="text-green-500 shrink-0 animate-in fade-in duration-150">✓</span>
+                        )}
+                        {!step.done && (
+                          <span className="shrink-0 flex gap-0.5">
+                            <span className="w-1 h-1 bg-[#FFC400]/60 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                            <span className="w-1 h-1 bg-[#FFC400]/60 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                            <span className="w-1 h-1 bg-[#FFC400]/60 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                          </span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <>
                 {/* Column Headers */}
                 <div className="grid grid-cols-12 gap-3 text-[#555] pb-3 border-b border-[#1a1a1a] uppercase font-bold tracking-[0.2em] text-[9px] w-full">
                   <div className="col-span-2">Time</div>
@@ -280,6 +395,8 @@ export default function LandingPage() {
 
                 {/* Fade out top gradient to obscure old logs */}
                 <div className="absolute top-[32px] left-0 right-0 h-24 bg-gradient-to-b from-[#080808] to-transparent z-20 pointer-events-none" />
+                  </>
+                )}
               </div>
 
               {/* Terminal Footer */}
@@ -474,6 +591,12 @@ if (result.decision === "allow") {
             <Link href="/terms" className="hover:text-[#FFC400] transition-colors">Terms</Link>
             <span>·</span>
             <Link href="/privacy" className="hover:text-[#FFC400] transition-colors">Privacy</Link>
+            <span>·</span>
+            <a href="https://x.com/usemoltwall" target="_blank" rel="noreferrer" aria-label="Follow on X" className="hover:text-[#FFC400] transition-colors inline-flex items-center">
+              <svg width="11" height="11" viewBox="0 0 1200 1227" fill="currentColor">
+                <path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.163 519.284ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.828Z"/>
+              </svg>
+            </a>
           </div>
           <p className="pt-2 text-[12px] text-[#333] font-sans">
             © {new Date().getFullYear()} · www.moltwall.xyz
