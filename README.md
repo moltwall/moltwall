@@ -1,8 +1,8 @@
-# MoltWall 鎧
+# MoltWall
 
 **Production-grade security firewall for AI agents.**
 
-> 鎧 (MoltWall) -Samurai armor. Full-stack firewall protection for your agents.
+> MoltWall — AI agent security firewall.
 
 MoltWall acts as a middleware layer between AI agents and external tools (APIs, wallets, browsers, MCP servers). Every agent action is evaluated before execution -returning `allow`, `deny`, `require_confirmation`, or `sandbox`.
 

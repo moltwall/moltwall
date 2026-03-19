@@ -100,7 +100,7 @@ export default function DashboardPage() {
             MONITOR YOUR <span className="text-[#FFC400] drop-shadow-[0_0_15px_rgba(255,196,0,0.3)]">AGENTS</span>
           </h1>
           <p className="text-[#888] text-sm md:text-base mt-4 max-w-2xl font-sans leading-relaxed">
-            Real-time evaluation of every agent action by MoltWall 鎧. Simulating offline with zero backend dependencies.
+            Real-time evaluation of every agent action by MoltWall. Simulating offline with zero backend dependencies.
             <span className="text-white font-medium ml-1">Enterprise-grade security, running entirely in your browser.</span>
           </p>
         </div>

@@ -8,38 +8,26 @@ import { BrandLogo } from "@/components/ui/BrandLogo";
 
 const FEATURES = [
   {
-    kanji: "鎧",
-    reading: "MoltWall",
     title: "Full-Stack Firewall",
     body: "Every agent action passes through a deterministic policy engine before execution. Allow, deny, sandbox, or require confirmation.",
   },
   {
-    kanji: "監",
-    reading: "KAN",
     title: "Real-Time Monitoring",
     body: "Every request is scored, every decision logged with full provenance. Complete audit trail across all agents and tools.",
   },
   {
-    kanji: "盾",
-    reading: "TATE",
     title: "Threat Guardrails",
     body: "Prompt injection, credential leaks, PII exposure, and tool poisoning detected and blocked before damage occurs.",
   },
   {
-    kanji: "鍵",
-    reading: "KAGI",
     title: "Policy Engine",
     body: "Define allowed tools, blocked actions, trusted domains, and spend limits. Redis-cached, sub-millisecond enforcement.",
   },
   {
-    kanji: "禁",
-    reading: "KIN",
     title: "Risk Scoring",
     body: "Multi-factor 0–1 risk score computed per-request. Source provenance, payload analysis, intent matching all factored in.",
   },
   {
-    kanji: "検",
-    reading: "KEN",
     title: "SDK & API",
     body: "Drop-in TypeScript SDK. One function call integrates MoltWall into any MCP agent, LangGraph flow, or custom framework.",
   },
@@ -96,18 +84,18 @@ export default function LandingPage() {
       <Navbar />
 
       {/* ── Nav spacer ───────────────────────────────────────────────────────── */}
-      <div className="h-[80px]" />
+      <div className="h-[96px]" />
 
       {/* ── Hero ────────────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[calc(100vh-80px)] pt-16 pb-24 flex flex-col items-center justify-center overflow-hidden">
+      <section className="relative min-h-[calc(100vh-96px)] pt-16 pb-24 flex flex-col items-center justify-center overflow-hidden">
         <GridCanvas />
 
         {/* Subtle glowing orb in background */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[60vh] bg-[#FFC400]/[0.05] rounded-[100%] blur-[120px] pointer-events-none" />
 
-        {/* Kanji watermark - moved back/opacity lowered */}
+        {/* Watermark (brand) */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden mix-blend-screen opacity-20">
-          <span className="text-[35rem] font-black text-[#FFC400]/[0.03] leading-none font-display">鎧</span>
+          <span className="text-[35rem] font-black text-[#FFC400]/[0.03] leading-none font-display">MOLT</span>
         </div>
 
         <div className="relative z-10 w-full px-6 max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-center">
@@ -126,7 +114,7 @@ export default function LandingPage() {
             </h1>
 
             <p className="text-[#999] text-[clamp(1.1rem,1.5vw,1.25rem)] max-w-2xl leading-relaxed mb-12">
-              <span className="text-white font-bold">MoltWall 鎧</span> is a production-grade security firewall for AI agents. Every tool call evaluated, every threat blocked, every decision audited -in under <span className="text-[#FFC400] font-bold">10ms</span>.
+              <span className="text-white font-bold">MoltWall</span> is a production-grade security firewall for AI agents. Every tool call evaluated, every threat blocked, every decision audited -in under <span className="text-[#FFC400] font-bold">10ms</span>.
             </p>
 
             <div className="flex items-center gap-5 flex-wrap">
@@ -266,11 +254,13 @@ export default function LandingPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#1a1a1a]">
-            {FEATURES.map((f) => (
-              <div key={f.kanji} className="bg-[#050505] p-8 group hover:bg-[#0c0c0c] transition-colors">
+            {FEATURES.map((f, idx) => (
+              <div key={f.title} className="bg-[#050505] p-8 group hover:bg-[#0c0c0c] transition-colors">
                 <div className="mb-5">
-                  <span className="text-4xl font-black text-[#FFC400] leading-none font-display block mb-1">{f.kanji}</span>
-                  <span className="text-[10px] font-bold tracking-[0.3em] text-[#333] font-display">{f.reading}</span>
+                  <span className="text-4xl font-black text-[#FFC400] leading-none font-display block mb-1">
+                    {(idx + 1).toString().padStart(2, "0")}
+                  </span>
+                  <span className="text-[10px] font-bold tracking-[0.3em] text-[#333] font-display uppercase">CORE</span>
                 </div>
                 <h3 className="text-white font-bold text-lg mb-2 font-sans">{f.title}</h3>
                 <p className="text-[#666] text-sm leading-relaxed font-sans">{f.body}</p>
@@ -380,7 +370,7 @@ if (result.decision === "allow") {
         <GridCanvas />
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(255,196,0,0.08) 0%, transparent 65%)" }} />
         <div className="relative z-10 max-w-3xl mx-auto">
-          <span className="text-8xl font-black text-[#FFC400]/10 font-display block mb-2 leading-none">鎧</span>
+          <span className="text-8xl font-black text-[#FFC400]/10 font-display block mb-2 leading-none">MOLT</span>
           <p className="text-[11px] font-bold tracking-[0.25em] text-[#FFC400] uppercase font-display mb-4">Start Today</p>
           <h2 className="font-display font-black text-white text-[clamp(2.5rem,6vw,4.5rem)] uppercase leading-tight mb-5">
             YOUR AGENTS. <br /><span className="text-[#FFC400]">FIREWALLED.</span>

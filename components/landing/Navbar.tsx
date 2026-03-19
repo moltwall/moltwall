@@ -5,9 +5,9 @@ import Link from "next/link";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 
 const NAV_ITEMS = [
-  { label: "Docs", href: "/docs", kanji: "書" },
-  { label: "Dashboard", href: "/dashboard", kanji: "監" },
-  { label: "X", href: "https://github.com/moltwall", kanji: "X", external: true },
+  { label: "Docs", href: "/docs" },
+  { label: "Dashboard", href: "/dashboard" },
+  { label: "X", href: "https://github.com/moltwall", external: true },
 ];
 
 export function Navbar() {
@@ -35,11 +35,11 @@ export function Navbar() {
       <div ref={ref} className="w-full max-w-xl">
 
         {/* ── Pill bar ──────────────────────────────────────────────────────── */}
-        <div className={`flex items-center justify-between px-5 py-2 bg-black border rounded-2xl transition-all duration-200 ${open ? "border-[#FFC400]/40 shadow-[0_0_30px_rgba(255,196,0,0.08)]" : "border-[#2a2a2a] hover:border-[#3a3a3a]"
+        <div className={`flex items-center justify-between px-5 py-3 bg-black border rounded-2xl transition-all duration-200 ${open ? "border-[#FFC400]/40 shadow-[0_0_30px_rgba(255,196,0,0.08)]" : "border-[#2a2a2a] hover:border-[#3a3a3a]"
           }`}>
 
           {/* Logo + tagline */}
-          <BrandLogo variant="full" size="sm" href="/" />
+          <BrandLogo variant="full" size="md" href="/" />
 
           {/* Right side */}
           <div className="flex items-center gap-3">
@@ -47,16 +47,16 @@ export function Navbar() {
             <Link
               href="/dashboard"
               onClick={() => setOpen(false)}
-              className={`hidden sm:flex items-center gap-1.5 bg-[#FFC400] text-black text-[11px] font-black uppercase tracking-[0.12em] px-4 py-1.5 rounded-lg hover:bg-[#e6b000] transition-all font-display ${open ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+              className={`hidden sm:flex items-center gap-1.5 bg-[#FFC400] text-black text-[12px] font-black uppercase tracking-[0.12em] px-4 py-2 rounded-lg hover:bg-[#e6b000] transition-all font-display ${open ? "opacity-0 pointer-events-none" : "opacity-100"}`}
             >
-              試 TRY DEMO
+              TRY DEMO
             </Link>
 
             {/* Hamburger */}
             <button
               onClick={() => setOpen((v) => !v)}
               aria-label="Toggle menu"
-              className={`size-9 flex items-center justify-center rounded-xl border transition-all ${open
+              className={`size-10 flex items-center justify-center rounded-xl border transition-all ${open
                 ? "border-[#FFC400]/40 bg-[#FFC400]/10 text-[#FFC400]"
                 : "border-[#2a2a2a] text-[#666] hover:text-white hover:border-[#444]"
                 }`}
@@ -77,7 +77,7 @@ export function Navbar() {
         </div>
 
         {/* ── Dropdown ──────────────────────────────────────────────────────── */}
-        <div className={`mt-2 overflow-hidden transition-all duration-200 ease-out ${open ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"
+        <div className={`mt-2.5 overflow-hidden transition-all duration-200 ease-out ${open ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"
           }`}>
           <div className="bg-black border border-[#2a2a2a] rounded-2xl overflow-hidden shadow-[0_16px_48px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,196,0,0.04)]">
 
@@ -95,7 +95,7 @@ export function Navbar() {
                       className="group flex items-center justify-between px-4 py-3.5 rounded-xl hover:bg-[#0f0f0f] transition-colors"
                     >
                       <div className="flex items-center gap-3">
-                        <span className="text-lg font-black text-[#FFC400]/30 group-hover:text-[#FFC400]/60 font-display transition-colors leading-none w-6">{item.kanji}</span>
+                        <span className="size-2 rounded-full bg-[#FFC400]/30 group-hover:bg-[#FFC400]/60 transition-colors shrink-0" />
                         <div>
                           <p className="text-[13px] font-bold text-white tracking-wide">{item.label}</p>
                           <p className="text-[11px] text-[#444] font-mono mt-0.5 tracking-wider">↗ EXTERNAL</p>
@@ -112,7 +112,7 @@ export function Navbar() {
                       className="group flex items-center justify-between px-4 py-3.5 rounded-xl hover:bg-[#0f0f0f] transition-colors"
                     >
                       <div className="flex items-center gap-3">
-                        <span className="text-lg font-black text-[#FFC400]/30 group-hover:text-[#FFC400]/60 font-display transition-colors leading-none w-6">{item.kanji}</span>
+                        <span className="size-2 rounded-full bg-[#FFC400]/30 group-hover:bg-[#FFC400]/60 transition-colors shrink-0" />
                         <div>
                           <p className="text-[13px] font-bold text-white tracking-wide">{item.label}</p>
                           <p className="text-[11px] text-[#444] font-mono mt-0.5 tracking-wider uppercase">{
@@ -138,7 +138,7 @@ export function Navbar() {
                 className="flex items-center justify-between w-full bg-[#FFC400] text-black px-5 py-3.5 rounded-xl hover:bg-[#e6b000] transition-all group"
               >
                 <div>
-                  <p className="text-[13px] font-black uppercase tracking-[0.12em] font-display">試 Launch Dashboard</p>
+                  <p className="text-[13px] font-black uppercase tracking-[0.12em] font-display">Launch Dashboard</p>
                   <p className="text-[10px] font-bold tracking-wider text-black/50 mt-0.5 font-mono">FREE · NO SIGNUP REQUIRED</p>
                 </div>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="shrink-0 group-hover:translate-x-0.5 transition-transform">

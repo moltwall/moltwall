@@ -111,14 +111,14 @@ export default function DocsPage() {
         {/* ──────────────────────────────────────────────────────────────────── */}
         <Section id="introduction">
           <div className="flex items-start gap-4 mb-4">
-            <span className="text-5xl font-black text-[#FFC400] leading-none font-display">壁</span>
+            <span className="text-5xl font-black text-[#FFC400] leading-none font-display">MOLT</span>
             <div>
-              <p className="text-[11px] font-bold tracking-[0.25em] text-[#FFC400] uppercase font-display mb-1">MoltWall 鎧 Docs v0.1</p>
+              <p className="text-[11px] font-bold tracking-[0.25em] text-[#FFC400] uppercase font-display mb-1">MoltWall Docs v0.1</p>
               <H2>Introduction</H2>
             </div>
           </div>
           <Lead>
-            MoltWall 鎧 is a production-grade security firewall middleware for AI agents. It sits between your agent and its tools, evaluating every action before execution against configurable policies, risk thresholds, and threat detection guardrails.
+            MoltWall is a production-grade security firewall middleware for AI agents. It sits between your agent and its tools, evaluating every action before execution against configurable policies, risk thresholds, and threat detection guardrails.
           </Lead>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 my-6">
             {([
@@ -621,15 +621,17 @@ headers: {
           <Lead>MoltWall is designed to defend against these threat vectors:</Lead>
           <div className="space-y-3 my-4">
             {[
-              { kanji: "注", label: "Prompt Injection", desc: "User or tool output crafted to override agent instructions. Detected by the injection scanner on all string values in args." },
-              { kanji: "毒", label: "Tool Poisoning", desc: "Malicious tool definitions that embed instructions. Scanned on registration and on every check request." },
-              { kanji: "盗", label: "Credential Theft", desc: "Attempts to exfiltrate API keys, tokens, or secrets via tool arguments. High-entropy string detection." },
-              { kanji: "窃", label: "Data Exfiltration", desc: "Indirect attacks via web content or tool outputs containing extraction instructions. Stricter rules for source=web/tool." },
-              { kanji: "浪", label: "Wallet Drain / Overspend", desc: "Unbounded monetary actions. Enforced via max_spend_usd policy field and payment-action risk weighting." },
-              { kanji: "洪", label: "DoS via Payload Size", desc: "Oversized arguments causing ReDoS or processing stalls. Enforced via body size, depth, and string length limits." },
-            ].map((t) => (
-              <div key={t.kanji} className="flex gap-4 bg-[#0a0a0a] border border-[#1e1e1e] rounded-xl p-4">
-                <span className="text-2xl font-black text-[#FFC400] font-display leading-none shrink-0 w-8">{t.kanji}</span>
+              { label: "Prompt Injection", desc: "User or tool output crafted to override agent instructions. Detected by the injection scanner on all string values in args." },
+              { label: "Tool Poisoning", desc: "Malicious tool definitions that embed instructions. Scanned on registration and on every check request." },
+              { label: "Credential Theft", desc: "Attempts to exfiltrate API keys, tokens, or secrets via tool arguments. High-entropy string detection." },
+              { label: "Data Exfiltration", desc: "Indirect attacks via web content or tool outputs containing extraction instructions. Stricter rules for source=web/tool." },
+              { label: "Wallet Drain / Overspend", desc: "Unbounded monetary actions. Enforced via max_spend_usd policy field and payment-action risk weighting." },
+              { label: "DoS via Payload Size", desc: "Oversized arguments causing ReDoS or processing stalls. Enforced via body size, depth, and string length limits." },
+            ].map((t, i) => (
+              <div key={t.label} className="flex gap-4 bg-[#0a0a0a] border border-[#1e1e1e] rounded-xl p-4">
+                <span className="text-xl font-black text-[#FFC400] font-display leading-none shrink-0 w-8">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
                 <div>
                   <p className="font-bold text-white text-sm">{t.label}</p>
                   <p className="text-[#666] text-sm mt-0.5 leading-relaxed">{t.desc}</p>
