@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { GridCanvas } from "@/components/ui/GridCanvas";
 import { Navbar } from "@/components/landing/Navbar";
 import { BrandLogo } from "@/components/ui/BrandLogo";
+import { DashboardButton } from "@/components/auth/DashboardButton";
 
 const FEATURES = [
   {
@@ -44,7 +44,6 @@ const HOW_IT_WORKS = [
 ];
 
 export default function LandingPage() {
-  const router = useRouter();
   const [threatsBlocked, setThreatsBlocked] = useState(14892301);
   const [logs, setLogs] = useState<{ id: number; agent: string; tool: string; action: string; time: string; status: "ALLOW" | "BLOCK" | "SANDBOX" }[]>([]);
 
@@ -127,11 +126,10 @@ export default function LandingPage() {
                 <span className="text-[#3a3a3a]">$</span>
                 <span className="group-hover:text-[#bbb] transition-colors duration-200">npm i @moltwall/sdk</span>
               </a>
-              <Link href="/dashboard"
-                className="group relative inline-flex items-center justify-center gap-2 bg-[#FFC400] text-black font-black text-[15px] uppercase tracking-widest px-10 py-5 rounded-xl transition-all hover:bg-[#ffe166] hover:scale-[1.02] active:scale-95 font-display overflow-hidden shadow-[0_0_40px_rgba(255,196,0,0.35)] hover:shadow-[0_0_60px_rgba(255,196,0,0.5)]">
+              <DashboardButton className="group relative inline-flex items-center justify-center gap-2 bg-[#FFC400] text-black font-black text-[15px] uppercase tracking-widest px-10 py-5 rounded-xl transition-all hover:bg-[#ffe166] hover:scale-[1.02] active:scale-95 font-display overflow-hidden shadow-[0_0_40px_rgba(255,196,0,0.35)] hover:shadow-[0_0_60px_rgba(255,196,0,0.5)]">
                 Deploy Firewall Now
                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-              </Link>
+              </DashboardButton>
               <Link href="/docs"
                 className="inline-flex items-center justify-center gap-2 text-[15px] font-bold uppercase tracking-widest px-10 py-5 rounded-xl border border-[#333] bg-[#050505] text-[#888] hover:text-white hover:border-[#666] transition-all font-display">
                 Read Documentation
@@ -388,16 +386,13 @@ if (result.decision === "allow") {
             Deploy MoltWall at www.moltwall.xyz in minutes. Open source. TypeScript-native. Production firewall from day one.
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
-            <button
-              onClick={() => router.push("/dashboard")}
-              className="inline-flex items-center gap-2 bg-[#FFC400] text-black font-black text-[13px] uppercase tracking-widest px-8 py-4 rounded-xl hover:bg-[#e6b000] transition-all font-display shadow-[0_0_40px_rgba(255,196,0,0.3)] cursor-pointer">
+            <DashboardButton className="inline-flex items-center gap-2 bg-[#FFC400] text-black font-black text-[13px] uppercase tracking-widest px-8 py-4 rounded-xl hover:bg-[#e6b000] transition-all font-display shadow-[0_0_40px_rgba(255,196,0,0.3)] cursor-pointer">
               OPEN DASHBOARD
-            </button>
-            <button
-              onClick={() => router.push("/docs")}
+            </DashboardButton>
+            <Link href="/docs"
               className="inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-widest px-8 py-4 rounded-xl border border-[#2a2a2a] text-[#777] hover:text-white hover:border-[#444] transition-all font-display cursor-pointer">
               DOCUMENTATION
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -413,9 +408,13 @@ if (result.decision === "allow") {
             <span>·</span>
             <Link href="/dashboard" className="hover:text-[#FFC400] transition-colors">Dashboard</Link>
             <span>·</span>
-             <Link href="https://github.com/moltwall/moltwall" target="_blank" className="hover:text-[#FFC400] transition-colors">Github</Link>
+            <Link href="https://github.com/moltwall/moltwall" target="_blank" className="hover:text-[#FFC400] transition-colors">Github</Link>
             <span>·</span>
             <Link href="https://www.npmjs.com/package/@moltwall/sdk" target="_blank" className="hover:text-[#FFC400] transition-colors">npm</Link>
+            <span>·</span>
+            <Link href="/terms" className="hover:text-[#FFC400] transition-colors">Terms</Link>
+            <span>·</span>
+            <Link href="/privacy" className="hover:text-[#FFC400] transition-colors">Privacy</Link>
           </div>
           <p className="pt-2 text-[12px] text-[#333] font-sans">
             © {new Date().getFullYear()} · www.moltwall.xyz

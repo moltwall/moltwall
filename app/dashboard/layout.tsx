@@ -1,5 +1,6 @@
 import { SidebarNav } from "@/components/dashboard/SidebarNav";
 import { BrandLogo } from "@/components/ui/BrandLogo";
+import { DashboardGuard } from "@/components/dashboard/DashboardGuard";
 
 export default function DashboardLayout({
   children,
@@ -7,6 +8,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
+    <DashboardGuard>
     <div className="flex min-h-screen bg-black">
       {/* Sidebar */}
       <aside className="w-52 shrink-0 border-r border-[#1e1e1e] bg-black flex flex-col sticky top-0 h-screen">
@@ -32,5 +34,6 @@ export default function DashboardLayout({
         {children}
       </main>
     </div>
+    </DashboardGuard>
   );
 }

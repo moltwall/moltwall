@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { BrandLogo } from "@/components/ui/BrandLogo";
+import { DashboardButton } from "@/components/auth/DashboardButton";
 
 const NAV_ITEMS = [
   { label: "Docs", href: "/docs" },
@@ -40,18 +41,17 @@ export function Navbar() {
           }`}>
 
           {/* Logo + tagline */}
-          <BrandLogo variant="full" size="md" href="/" />
+          <BrandLogo variant="full" size="md" href="/" withTagline />
 
           {/* Right side */}
           <div className="flex items-center gap-3">
             {/* Try Demo -visible when menu closed */}
-            <Link
-              href="/dashboard"
-              onClick={() => setOpen(false)}
+            <DashboardButton
+              onBeforeAction={() => setOpen(false)}
               className={`hidden sm:flex items-center gap-1.5 bg-[#FFC400] text-black text-[12px] font-black uppercase tracking-[0.12em] px-4 py-2 rounded-lg hover:bg-[#e6b000] transition-all font-display ${open ? "opacity-0 pointer-events-none" : "opacity-100"}`}
             >
               TRY DEMO
-            </Link>
+            </DashboardButton>
 
             {/* Hamburger */}
             <button
@@ -136,20 +136,19 @@ export function Navbar() {
 
             {/* CTA footer */}
             <div className="px-3 pb-3">
-              <Link
-                href="/dashboard"
-                onClick={() => setOpen(false)}
+              <DashboardButton
+                onBeforeAction={() => setOpen(false)}
                 className="flex items-center justify-between w-full bg-[#FFC400] text-black px-5 py-3.5 rounded-xl hover:bg-[#e6b000] transition-all group"
               >
                 <div>
                   <p className="text-[13px] font-black uppercase tracking-[0.12em] font-display">Launch Dashboard</p>
-                  <p className="text-[10px] font-bold tracking-wider text-black/50 mt-0.5 font-mono">FREE · NO SIGNUP REQUIRED</p>
+                  <p className="text-[10px] font-bold tracking-wider text-black/50 mt-0.5 font-mono">FREE · SIGN IN TO CONTINUE</p>
                 </div>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="shrink-0 group-hover:translate-x-0.5 transition-transform">
                   <path d="M8 1L1.5 4v4.5c0 3.5 2.8 5.8 6.5 6.5 3.7-.7 6.5-3 6.5-6.5V4L8 1z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
                   <path d="M5 8l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-              </Link>
+              </DashboardButton>
             </div>
 
           </div>
