@@ -3,10 +3,15 @@
  * Agent Security Firewall -full-stack protection for your AI agents.
  *
  * Usage:
- *   import { MoltWall } from "./sdk/typescript"
+ *   import { MoltWall } from "@moltwall/sdk"
  *
- *   const wall = new MoltWall({ apiKey: process.env.MoltWall_API_KEY })
- *   const result = await wall.check({ agent_id: "agent-1", action: "transfer", tool: "wallet", args: { amount: 100 } })
+ *   const wall = new MoltWall({ apiKey: process.env.MOLTWALL_API_KEY ?? "" })
+ *   const result = await wall.check({
+ *     agent_id: "agent-1",
+ *     action: "transfer",
+ *     tool: "wallet",
+ *     args: { amount: 100 }
+ *   })
  *   if (result.decision !== "allow") throw new Error(`Blocked: ${result.reason}`)
  */
 
@@ -88,7 +93,7 @@ export class MoltWall {
       user_intent: request.user_intent,
     };
 
-    return this.post<SDKCheckResponse>("/api/MoltWall/check", body);
+    return this.post<SDKCheckResponse>("/api/moltwall/check", body);
   }
 
   // ─── registerTool() ──────────────────────────────────────────────────────────

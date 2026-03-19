@@ -7,7 +7,8 @@ import { BrandLogo } from "@/components/ui/BrandLogo";
 const NAV_ITEMS = [
   { label: "Docs", href: "/docs" },
   { label: "Dashboard", href: "/dashboard" },
-  { label: "X", href: "https://github.com/moltwall", external: true },
+  { label: "GitHub", href: "https://github.com/moltwall/moltwall", external: true },
+  { label: "npm", href: "https://www.npmjs.com/package/@moltwall/sdk", external: true },
 ];
 
 export function Navbar() {
@@ -31,8 +32,8 @@ export function Navbar() {
   }, []);
 
   return (
-    <div className="fixed top-5 left-0 right-0 z-50 flex justify-center px-4">
-      <div ref={ref} className="w-full max-w-xl">
+    <div className="fixed top-5 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+      <div ref={ref} className="w-full max-w-xl pointer-events-auto">
 
         {/* ── Pill bar ──────────────────────────────────────────────────────── */}
         <div className={`flex items-center justify-between px-5 py-3 bg-black border rounded-2xl transition-all duration-200 ${open ? "border-[#FFC400]/40 shadow-[0_0_30px_rgba(255,196,0,0.08)]" : "border-[#2a2a2a] hover:border-[#3a3a3a]"
@@ -77,7 +78,7 @@ export function Navbar() {
         </div>
 
         {/* ── Dropdown ──────────────────────────────────────────────────────── */}
-        <div className={`mt-2.5 overflow-hidden transition-all duration-200 ease-out ${open ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"
+        <div className={`mt-2.5 overflow-hidden transition-all duration-200 ease-out ${open ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none h-0"
           }`}>
           <div className="bg-black border border-[#2a2a2a] rounded-2xl overflow-hidden shadow-[0_16px_48px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,196,0,0.04)]">
 
@@ -98,7 +99,10 @@ export function Navbar() {
                         <span className="size-2 rounded-full bg-[#FFC400]/30 group-hover:bg-[#FFC400]/60 transition-colors shrink-0" />
                         <div>
                           <p className="text-[13px] font-bold text-white tracking-wide">{item.label}</p>
-                          <p className="text-[11px] text-[#444] font-mono mt-0.5 tracking-wider">↗ EXTERNAL</p>
+                          <p className="text-[11px] text-[#444] font-mono mt-0.5 tracking-wider">{
+                            item.label === "GitHub" ? "↗ github.com/moltwall/moltwall" :
+                            item.label === "npm" ? "↗ npmjs.com/package/@moltwall/sdk" : "↗ EXTERNAL"
+                          }</p>
                         </div>
                       </div>
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-[#333] group-hover:text-[#555] transition-colors">

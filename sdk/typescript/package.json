@@ -1,0 +1,43 @@
+{
+  "name": "@moltwall/sdk",
+  "version": "0.1.0",
+  "description": "MoltWall — AI agent security firewall TypeScript SDK.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moltwall"
+  },
+  "homepage": "https://www.moltwall.xyz",
+  "keywords": [
+    "ai",
+    "agents",
+    "security",
+    "firewall",
+    "guardrails",
+    "typescript",
+    "sdk"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "npm run build"
+  }
+}
+

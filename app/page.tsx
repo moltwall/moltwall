@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { GridCanvas } from "@/components/ui/GridCanvas";
 import { Navbar } from "@/components/landing/Navbar";
@@ -43,6 +44,7 @@ const HOW_IT_WORKS = [
 ];
 
 export default function LandingPage() {
+  const router = useRouter();
   const [threatsBlocked, setThreatsBlocked] = useState(14892301);
   const [logs, setLogs] = useState<{ id: number; agent: string; tool: string; action: string; time: string; status: "ALLOW" | "BLOCK" | "SANDBOX" }[]>([]);
 
@@ -102,10 +104,7 @@ export default function LandingPage() {
 
           {/* Left Column: Text & CTA */}
           <div className="text-left mt-8 lg:mt-0">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFC400]/10 border border-[#FFC400]/20 mb-8 overflow-hidden backdrop-blur-sm shadow-[0_0_15px_rgba(255,196,0,0.1)]">
-              <span className="w-2 h-2 rounded-full bg-[#FFC400] animate-[pulse_1.5s_infinite]" />
-              <span className="text-[#FFC400] text-xs font-bold tracking-widest uppercase">MoltWall Core Active</span>
-            </div>
+    
 
             <h1 className="font-display font-black text-white leading-[0.92] uppercase mb-8">
               <span className="block text-[clamp(3.5rem,7vw,6.5rem)] text-white/95">SECURE EVERY</span>
@@ -118,6 +117,16 @@ export default function LandingPage() {
             </p>
 
             <div className="flex items-center gap-5 flex-wrap">
+              <a
+                href="https://www.npmjs.com/package/@moltwall/sdk"
+                target="_blank"
+                rel="noreferrer"
+                className="group inline-flex items-center gap-2.5 bg-[#0d0d0d] border border-[#252525] hover:border-[#FFC400]/25 text-[#666] hover:text-[#999] font-mono text-[13px] px-5 py-4 rounded-xl transition-all duration-200"
+              >
+                <span className="shrink-0 inline-flex items-center justify-center bg-[#CB3837] text-white text-[9px] font-black font-mono leading-none px-1.5 py-1 rounded">npm</span>
+                <span className="text-[#3a3a3a]">$</span>
+                <span className="group-hover:text-[#bbb] transition-colors duration-200">npm i @moltwall/sdk</span>
+              </a>
               <Link href="/dashboard"
                 className="group relative inline-flex items-center justify-center gap-2 bg-[#FFC400] text-black font-black text-[15px] uppercase tracking-widest px-10 py-5 rounded-xl transition-all hover:bg-[#ffe166] hover:scale-[1.02] active:scale-95 font-display overflow-hidden shadow-[0_0_40px_rgba(255,196,0,0.35)] hover:shadow-[0_0_60px_rgba(255,196,0,0.5)]">
                 Deploy Firewall Now
@@ -331,11 +340,11 @@ export default function LandingPage() {
                 <span className="size-3 rounded-full bg-[#22c55e]/60" />
                 <span className="ml-3 text-[11px] text-[#444] font-mono">agent.ts</span>
               </div>
-              <pre className="p-6 text-[13px] font-mono leading-relaxed overflow-x-auto text-[#FFC400]">{`import { MoltWall } from "@MoltWall/sdk";
+              <pre className="p-6 text-[13px] font-mono leading-relaxed overflow-x-auto text-[#FFC400]">{`import { MoltWall } from "@moltwall/sdk";
 
 const wall = new MoltWall({
-  apiKey: process.env.MoltWall_API_KEY,
-  agentId: "my-agent-001",
+  apiKey: process.env.MOLTWALL_API_KEY,
+  baseUrl: "https://www.moltwall.xyz",
 });
 
 // Before every tool call:
@@ -366,11 +375,11 @@ if (result.decision === "allow") {
       </section>
 
       {/* ── CTA ─────────────────────────────────────────────────────────────── */}
-      <section className="relative py-32 px-6 text-center overflow-hidden">
+      <section className="relative py-32 px-6 text-center">
         <GridCanvas />
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(255,196,0,0.08) 0%, transparent 65%)" }} />
         <div className="relative z-10 max-w-3xl mx-auto">
-          <span className="text-8xl font-black text-[#FFC400]/10 font-display block mb-2 leading-none">MOLT</span>
+          <span className="text-[clamp(2.5rem,7vw,4.5rem)] font-black text-[#FFC400]/10 font-display block mb-2 leading-none tracking-wide">MOLTWALL</span>
           <p className="text-[11px] font-bold tracking-[0.25em] text-[#FFC400] uppercase font-display mb-4">Start Today</p>
           <h2 className="font-display font-black text-white text-[clamp(2.5rem,6vw,4.5rem)] uppercase leading-tight mb-5">
             YOUR AGENTS. <br /><span className="text-[#FFC400]">FIREWALLED.</span>
@@ -378,15 +387,17 @@ if (result.decision === "allow") {
           <p className="text-[#666] mb-10 max-w-xl mx-auto leading-relaxed">
             Deploy MoltWall at www.moltwall.xyz in minutes. Open source. TypeScript-native. Production firewall from day one.
           </p>
-          <div className="relative z-50 flex items-center justify-center gap-4 flex-wrap">
-            <Link href="/dashboard"
-              className="inline-flex items-center gap-2 bg-[#FFC400] text-black font-black text-[13px] uppercase tracking-widest px-8 py-4 rounded-xl hover:bg-[#e6b000] transition-all font-display shadow-[0_0_40px_rgba(255,196,0,0.3)]">
+          <div className="flex items-center justify-center gap-4 flex-wrap">
+            <button
+              onClick={() => router.push("/dashboard")}
+              className="inline-flex items-center gap-2 bg-[#FFC400] text-black font-black text-[13px] uppercase tracking-widest px-8 py-4 rounded-xl hover:bg-[#e6b000] transition-all font-display shadow-[0_0_40px_rgba(255,196,0,0.3)] cursor-pointer">
               OPEN DASHBOARD
-            </Link>
-            <Link href="/docs"
-              className="inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-widest px-8 py-4 rounded-xl border border-[#2a2a2a] text-[#777] hover:text-white hover:border-[#444] transition-all font-display">
+            </button>
+            <button
+              onClick={() => router.push("/docs")}
+              className="inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-widest px-8 py-4 rounded-xl border border-[#2a2a2a] text-[#777] hover:text-white hover:border-[#444] transition-all font-display cursor-pointer">
               DOCUMENTATION
-            </Link>
+            </button>
           </div>
         </div>
       </section>
@@ -397,12 +408,14 @@ if (result.decision === "allow") {
           <div className="flex justify-center">
             <BrandLogo variant="full" size="md" withTagline />
           </div>
-          <div className="mt-1 space-x-3 text-[11px] text-[#444] font-sans">
+          <div className="mt-1 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[11px] text-[#444] font-sans">
             <Link href="/docs" className="hover:text-[#FFC400] transition-colors">Docs</Link>
             <span>·</span>
             <Link href="/dashboard" className="hover:text-[#FFC400] transition-colors">Dashboard</Link>
             <span>·</span>
-            <a href="https://github.com/moltwall" target="_blank" rel="noreferrer" className="hover:text-[#FFC400] transition-colors">X</a>
+             <Link href="https://github.com/moltwall/moltwall" target="_blank" className="hover:text-[#FFC400] transition-colors">Github</Link>
+            <span>·</span>
+            <Link href="https://www.npmjs.com/package/@moltwall/sdk" target="_blank" className="hover:text-[#FFC400] transition-colors">npm</Link>
           </div>
           <p className="pt-2 text-[12px] text-[#333] font-sans">
             © {new Date().getFullYear()} · www.moltwall.xyz
