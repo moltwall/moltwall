@@ -139,7 +139,7 @@ const result = await wall.check({
   tool: "solana_wallet",
   args: { amount: 100 },
   source: "user",
-  user_intent: "Send 100 SOL to Alice",
+  user_intent: "Send 100 SOL to Alice.",
 })
 
 if (result.decision === "deny") {
