@@ -6,6 +6,7 @@ import { GridCanvas } from "@/components/ui/GridCanvas";
 import { Navbar } from "@/components/landing/Navbar";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { DashboardButton } from "@/components/auth/DashboardButton";
+import { MaintenancePage } from "@/components/landing/MaintenancePage";
 
 const FEATURES = [
   {
@@ -172,6 +173,8 @@ export default function LandingPage() {
 
     return () => clearInterval(interval);
   }, []);
+
+  if (process.env.NEXT_PUBLIC_SHOW_MP === "true") return <MaintenancePage />;
 
   return (
     <div className="bg-black text-white min-h-screen font-sans overflow-x-hidden">
