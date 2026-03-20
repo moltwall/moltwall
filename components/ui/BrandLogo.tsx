@@ -36,7 +36,7 @@ export function BrandLogo({
           }}
         />
         {withTagline && (
-          <span className="inline-flex items-center gap-2 ml-1 truncate">
+          <span className="hidden sm:inline-flex items-center gap-2 ml-1 truncate">
             <span className="text-[#444] font-normal tracking-normal">|</span>
             <span
               style={{ fontSize: "10px", letterSpacing: "0.08em" }}

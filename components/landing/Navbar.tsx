@@ -34,18 +34,20 @@ export function Navbar() {
   }, []);
 
   return (
-    <div className="fixed top-5 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+    <div className="fixed top-3 sm:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 pointer-events-none">
       <div ref={ref} className="w-full max-w-xl pointer-events-auto">
 
         {/* ── Pill bar ──────────────────────────────────────────────────────── */}
-        <div className={`flex items-center justify-between px-5 py-3 bg-black border rounded-2xl transition-all duration-200 ${open ? "border-[#FFC400]/40 shadow-[0_0_30px_rgba(255,196,0,0.08)]" : "border-[#2a2a2a] hover:border-[#3a3a3a]"
+        <div className={`flex items-center justify-between gap-2 px-4 sm:px-5 py-3 bg-black border rounded-2xl transition-all duration-200 ${open ? "border-[#FFC400]/40 shadow-[0_0_30px_rgba(255,196,0,0.08)]" : "border-[#2a2a2a] hover:border-[#3a3a3a]"
           }`}>
 
           {/* Logo + tagline */}
-          <BrandLogo variant="full" size="md" href="/" withTagline />
+          <div className="min-w-0 flex-1">
+            <BrandLogo variant="full" size="md" href="/" withTagline />
+          </div>
 
           {/* Right side */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             {/* Try Demo -visible when menu closed */}
             <DashboardButton
               onBeforeAction={() => setOpen(false)}
