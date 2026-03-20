@@ -584,6 +584,8 @@ if (result.decision === "allow") {
             <span>·</span>
             <Link href="/dashboard" className="hover:text-[#FFC400] transition-colors">Dashboard</Link>
             <span>·</span>
+            <Link href="/roadmap" className="hover:text-[#FFC400] transition-colors">Roadmap</Link>
+            <span>·</span>
             <Link href="https://github.com/moltwall/moltwall" target="_blank" className="hover:text-[#FFC400] transition-colors">Github</Link>
             <span>·</span>
             <Link href="https://www.npmjs.com/package/@moltwall/sdk" target="_blank" className="hover:text-[#FFC400] transition-colors">npm</Link>
