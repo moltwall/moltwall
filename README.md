@@ -104,7 +104,7 @@ Response:
 {
   "decision": "deny",
   "risk_score": 0.88,
-  "reason": "Action involves financial transfer and tool is not registered",
+  "reason": "Financial transfer tool not in allowlist — action denied by policy engine",
   "action_id": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
