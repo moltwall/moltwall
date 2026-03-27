@@ -30,7 +30,7 @@ API Key Auth → Rate Limiter → Policy Engine → Risk Engine
   ↓
 Decision: allow | deny | require_confirmation | sandbox
   ↓
-Action Log (Supabase) + Cache (Redis)
+Immutable Action Log (Supabase) + Decision Cache (Redis)
 ```
 
 ---
