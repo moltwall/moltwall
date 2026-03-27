@@ -54,7 +54,7 @@ Fill in:
 | Variable | Description |
 |---|---|
 | `SUPABASE_URL` | Your Supabase project URL |
-| `SUPABASE_SERVICE_KEY` | Supabase service role key (never expose client-side) |
+| `SUPABASE_SERVICE_KEY` | Supabase service role key — server-only, never expose to client |
 | `UPSTASH_REDIS_URL` | Upstash Redis REST URL |
 | `UPSTASH_REDIS_TOKEN` | Upstash Redis REST token |
 | `MOLTWALL_SECRET` | 64+ character secret for HMAC-SHA256 internal token signing |
