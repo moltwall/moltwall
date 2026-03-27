@@ -177,7 +177,7 @@ Policies define allowed behavior -evaluated **deterministically** — zero LLM i
   "allowed_tools": ["browser", "search", "calendar"],
   "blocked_actions": ["delete_account", "drop_table"],
   "trusted_domains": ["github.com", "docs.company.com", "api.moltwall.xyz"],
-  "max_spend_usd": 500,
+  "max_spend_usd": 500,  // enforced per-session
   "sensitive_actions": ["payment", "transfer"],
   "risk_threshold_allow": 0.25,
   "risk_threshold_sandbox": 0.6,
