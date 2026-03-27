@@ -143,7 +143,7 @@ const result = await wall.check({
 })
 
 if (result.decision === "deny") {
-  throw new Error(`Action blocked: ${result.reason}`)
+  throw new Error(`[MoltWall] Action blocked: ${result.reason}`)
 }
 
 if (result.decision === "require_confirmation") {
