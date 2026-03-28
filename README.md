@@ -109,7 +109,7 @@ Response:
 }
 ```
 
-### Other Endpoints
+### Supporting Endpoints
 
 | Method | Path | Description |
 |--------|------|-------------|
