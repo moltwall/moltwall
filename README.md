@@ -81,7 +81,7 @@ Open [http://localhost:3000](http://localhost:3000) — dashboard available at `
 
 Full OpenAPI 3.1 spec: [`openapi/spec.yaml`](openapi/spec.yaml)
 
-### Core Endpoint
+### Primary Firewall Endpoint
 
 ```http
 POST /api/MoltWall/check
