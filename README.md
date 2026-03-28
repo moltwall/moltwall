@@ -174,7 +174,7 @@ Policies define allowed behavior -evaluated **deterministically** — zero LLM i
 
 ```json
 {
-  "allowed_tools": ["browser", "search", "calendar"],
+  "allowed_tools": ["browser", "search", "calendar", "email"],
   "blocked_actions": ["delete_account", "drop_table"],
   "trusted_domains": ["github.com", "docs.company.com", "api.moltwall.xyz"],
   "max_spend_usd": 500,  // enforced per-session
