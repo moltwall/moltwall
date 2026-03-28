@@ -122,7 +122,7 @@ Response:
 
 ---
 
-## SDK Usage
+## SDK Usage (TypeScript)
 
 ```typescript
 import { MoltWall } from "./sdk/typescript"
