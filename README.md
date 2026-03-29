@@ -4,15 +4,15 @@
 
 > MoltWall — real-time security firewall for AI agents.
 
-MoltWall operates as a middleware layer between AI agents and external tools (APIs, wallets, browsers, MCP servers). Every agent action is intercepted and evaluated before execution -returning `allow`, `deny`, `sandbox`, or `require_confirmation` — each with a full risk trace.
+MoltWall operates as a middleware layer between AI agents and external tools (APIs, wallets, browsers, MCP servers). Every agent action is intercepted and evaluated before execution — returning `allow`, `deny`, `sandbox`, or `require_confirmation` — each with a full risk trace.
 
 ## What It Prevents
 
 - Prompt injection and jailbreak attacks
 - Malicious or tampered tool outputs
 - Unsafe or unintended autonomous execution
-- Wallet theft / credential exfiltration
-- Spend liMIT — see LICENSE for full terms and budget overrun violations
+- Wallet theft, key leakage / credential exfiltration
+- Spend limit and budget overrun violations
 - Tool misuse by compromised or hijacked agents
 
 ---
@@ -26,7 +26,7 @@ MoltWall SDK
   ↓
 POST /api/MoltWall/check
   ↓
-API Key Auth → Rate LiMIT — see LICENSE for full termser → Policy Engine → Risk Engine
+API Key Auth → Rate Limiter → Guardrail Engine → Policy Engine → Risk Engine
   ↓
 Decision: allow | deny | require_confirmation | sandbox
   ↓
@@ -43,7 +43,7 @@ Immutable Action Log (Supabase) + Decision Cache (Redis)
 npm install
 ```
 
-### 2. Configure environment variables
+### 2. Set environment variables
 
 ```bash
 cp .env.example .env.local
@@ -59,15 +59,15 @@ Fill in:
 | `UPSTASH_REDIS_TOKEN` | Upstash Redis REST token |
 | `MOLTWALL_SECRET` | 64+ character secret for HMAC-SHA256 internal token signing |
 
-### 3. Run database migration
+### 3. Apply database migration
 
-In your Supabase SQL editor \(or via CLI\), run:
+In your Supabase SQL editor (or via CLI), run:
 
 ```sql
 -- contents of database/migrations/001_initial.sql
 ```
 
-### 4. Start development server
+### 4. Start the development server
 
 ```bash
 npm run dev
@@ -79,7 +79,7 @@ Open [http://localhost:3000](http://localhost:3000) — dashboard available at `
 
 ## API Reference
 
-Full OpenAPI 3.1 spec: [`openapi/spec.yaml`](openapi/spec.yaml)
+Full OpenAPI 3.1 spec (auto-generated): [`openapi/spec.yaml`](openapi/spec.yaml)
 
 ### Primary Firewall Endpoint
 
@@ -93,7 +93,7 @@ Content-Type: application/json
   "action": "transfer",
   "tool": "solana_wallet",
   "args": { "amount": 100, "to": "0xabc..." },
-  "source": "user",  // user | agent | system,
+  "source": "user",
   "user_intent": "Send 100 SOL to Alice"
 }
 ```
@@ -163,21 +163,21 @@ await wall.registerTool({
 })
 
 // Fetch audit logs
-const logs = await wall.getLogs({ decision: "deny", liMIT — see LICENSE for full terms: 20 })
+const logs = await wall.getLogs({ decision: "deny", limit: 20 })
 ```
 
 ---
 
 ## Policy Engine (Deterministic)
 
-Policies define allowed behavior -evaluated **deterministically** — zero LLM inference, sub-millisecond latency.
+Policies define allowed behavior — evaluated **deterministically** — zero LLM inference, sub-millisecond latency.
 
 ```json
 {
   "allowed_tools": ["browser", "search", "calendar", "email"],
   "blocked_actions": ["delete_account", "drop_table"],
   "trusted_domains": ["github.com", "docs.company.com", "api.moltwall.xyz"],
-  "max_spend_usd": 500,  // enforced per-session
+  "max_spend_usd": 500,
   "sensitive_actions": ["payment", "transfer", "delete"],
   "risk_threshold_allow": 0.25,
   "risk_threshold_sandbox": 0.6,
@@ -191,27 +191,27 @@ Policies define allowed behavior -evaluated **deterministically** — zero LLM i
 
 ```
 /app
-  /api/MoltWall/check        ← Core firewall endpoint
-  /api/agentwall/check    ← Legacy alias (same handler)
+  /api/MoltWall/check     ← Core firewall endpoint
+  /api/agentwall/check    ← Legacy alias, kept for backward compat
   /api/policy             ← Policy CRUD
   /api/tools              ← Tool list
   /api/tools/register     ← Tool registration
   /api/logs               ← Action log query
-  /dashboard              ← Admin UI
-  /docs                   ← Documentation
+  /dashboard              ← Admin UI + live audit feed
+  /docs                   ← Embedded documentation + API reference
 /sdk/typescript           ← MoltWall TypeScript SDK (ESM + CJS)
 /lib
   /policy-engine          ← Deterministic evaluators
   /risk-engine            ← Weighted scorers
-  /guardrail-engine       ← Injection / PII / credential scanners
-  /redis                  ← Upstash wrapper + rate liMIT — see LICENSE for full termser
-  /supabase               ← Supabase server client
-/types                    ← Shared Zod schemas + TS types
-/utils                    ← Error classes, logger
+  /guardrail-engine       ← Injection, PII, credential + data-exfil scanners
+  /redis                  ← Upstash wrapper, rate limiter + sliding window counters
+  /supabase               ← Supabase server client + typed query helpers
+/types                    ← Shared Zod schemas, TS types + runtime validators
+/utils                    ← Error classes, structured logger, retry helpers
 ```
 
 ---
 
 ## License
 
-MIT — see LICENSE for full terms
+MIT
