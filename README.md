@@ -212,6 +212,12 @@ Policies define allowed behavior — evaluated **deterministically** — zero LL
 
 ---
 
+## Token
+
+**Contract Address:** `BnmWGUwKU6qkcuMdiQAGn6Pds395Dd3HLPukHmduMWL`
+
+---
+
 ## License
 
 MIT
