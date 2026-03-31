@@ -122,7 +122,13 @@ Response:
 
 ---
 
-## SDK Usage (TypeScript)
+## SDK Usage
+
+Available for **TypeScript** and **Python (beta)**. Go SDK planned for Q3 2026.
+
+> Python: `pip install "moltwall[langchain]"` — see [`sdk/python/`](sdk/python/README.md)
+
+### TypeScript
 
 ```typescript
 import { MoltWall } from "./sdk/typescript"
