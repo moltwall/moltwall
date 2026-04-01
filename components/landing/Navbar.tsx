@@ -10,7 +10,6 @@ const NAV_ITEMS = [
   { label: "Dashboard", href: "/dashboard" },
   { label: "Roadmap", href: "/roadmap" },
   { label: "GitHub", href: "https://github.com/moltwall", external: true },
-  { label: "npm", href: "https://www.npmjs.com/package/@moltwall/sdk", external: true },
 ];
 
 export function Navbar() {
