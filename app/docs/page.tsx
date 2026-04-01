@@ -502,17 +502,71 @@ CacheKeys.rateLimit(agentId)  // → "rl:agent:<id>"`}</Code>
 
         {/* ──────────────────────────────────────────────────────────────────── */}
         <Section id="sdk-install">
-          <H2>SDK -Installation</H2>
-          <Lead>The MoltWall SDK is a thin TypeScript client that wraps the REST API.</Lead>
-          <Code lang="bash">{`npm install @MoltWall/sdk
-# or: pnpm add @MoltWall/sdk`}</Code>
-          <Code lang="typescript">{`import { MoltWall } from "@MoltWall/sdk";
+          <H2>SDK — Installation</H2>
+          <Lead>MoltWall ships first-class SDKs for TypeScript, Python, and Go. All wrap the same REST API.</Lead>
+
+          <H3>TypeScript / Node.js</H3>
+          <Code lang="bash">{`npm install @moltwall/sdk
+# or: pnpm add @moltwall/sdk`}</Code>
+          <Code lang="typescript">{`import { MoltWall } from "@moltwall/sdk";
 
 const wall = new MoltWall({
-  baseUrl: "https://your-MoltWall.vercel.app",
-  apiKey:  process.env.MoltWall_API_KEY!,
-  agentId: "my-agent",  // default agent_id for all checks
+  baseUrl: "https://www.moltwall.xyz",
+  apiKey:  process.env.MOLTWALL_API_KEY!,
+  agentId: "my-agent",
 });`}</Code>
+
+          <H3>Python (beta)</H3>
+          <Code lang="bash">{`pip install moltwall
+# with httpx for best performance:
+pip install "moltwall[httpx]"
+# with LangChain integration:
+pip install "moltwall[langchain]"`}</Code>
+          <Code lang="python">{`from moltwall import MoltWall
+
+wall = MoltWall(api_key="moltwall_live_...", base_url="https://www.moltwall.xyz")
+
+result = wall.check(
+    agent_id="my-agent",
+    action="transfer_funds",
+    tool="wallet",
+    args={"amount": 100},
+    source="user",
+)
+result.raise_if_blocked()`}</Code>
+
+          <H3>Go</H3>
+          <Code lang="bash">{`go get github.com/moltwall/sdk-go`}</Code>
+          <Code lang="go">{`import "github.com/moltwall/sdk-go/moltwall"
+
+wall := moltwall.New("moltwall_live_...")
+
+resp, err := wall.CheckAndBlock(ctx, moltwall.CheckRequest{
+    AgentID: "my-agent",
+    Action:  "transfer_funds",
+    Tool:    "wallet",
+    Args:    map[string]any{"amount": 100},
+    Source:  moltwall.SourceUser,
+})
+// returns *BlockedError if denied`}</Code>
+
+          <div className="flex flex-wrap gap-3 mt-6">
+            <a href="https://www.npmjs.com/package/@moltwall/sdk" target="_blank" rel="noreferrer"
+              className="inline-flex items-center gap-2 bg-[#0d0d0d] border border-[#252525] hover:border-[#FFC400]/30 text-[#666] hover:text-[#999] font-mono text-[12px] px-4 py-2 rounded-lg transition-all">
+              <span className="bg-[#CB3837] text-white text-[9px] font-black px-1.5 py-0.5 rounded">npm</span>
+              @moltwall/sdk
+            </a>
+            <a href="https://pypi.org/project/moltwall/" target="_blank" rel="noreferrer"
+              className="inline-flex items-center gap-2 bg-[#0d0d0d] border border-[#252525] hover:border-[#FFC400]/30 text-[#666] hover:text-[#999] font-mono text-[12px] px-4 py-2 rounded-lg transition-all">
+              <span className="bg-[#3572A5] text-white text-[9px] font-black px-1.5 py-0.5 rounded">PyPI</span>
+              moltwall
+            </a>
+            <a href="https://github.com/moltwall/sdk-go" target="_blank" rel="noreferrer"
+              className="inline-flex items-center gap-2 bg-[#0d0d0d] border border-[#252525] hover:border-[#FFC400]/30 text-[#666] hover:text-[#999] font-mono text-[12px] px-4 py-2 rounded-lg transition-all">
+              <span className="bg-[#00ADD8] text-white text-[9px] font-black px-1.5 py-0.5 rounded">Go</span>
+              sdk-go
+            </a>
+          </div>
         </Section>
 
         {/* ──────────────────────────────────────────────────────────────────── */}
