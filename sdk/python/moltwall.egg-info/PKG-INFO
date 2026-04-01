@@ -1,0 +1,103 @@
+Metadata-Version: 2.4
+Name: moltwall
+Version: 0.1.0b1
+Summary: Real-time security firewall SDK for AI agents
+License: MIT
+Project-URL: Homepage, https://www.moltwall.xyz
+Project-URL: Repository, https://github.com/moltwall
+Project-URL: Docs, https://www.moltwall.xyz/docs
+Keywords: ai,agents,security,firewall,langchain,mcp
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Security
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Provides-Extra: httpx
+Requires-Dist: httpx>=0.27; extra == "httpx"
+Provides-Extra: langchain
+Requires-Dist: langchain-core>=0.2; extra == "langchain"
+Requires-Dist: httpx>=0.27; extra == "langchain"
+Provides-Extra: all
+Requires-Dist: httpx>=0.27; extra == "all"
+Requires-Dist: langchain-core>=0.2; extra == "all"
+
+# MoltWall Python SDK (Beta)
+
+Real-time security firewall for AI agents — Python edition.
+
+```bash
+pip install moltwall
+# with httpx for best performance:
+pip install "moltwall[httpx]"
+# with LangChain integration:
+pip install "moltwall[langchain]"
+```
+
+## Quickstart
+
+```python
+from moltwall import MoltWall
+
+wall = MoltWall(api_key="moltwall_live_...", base_url="https://www.moltwall.xyz")
+
+result = wall.check(
+    agent_id="my-agent",
+    action="transfer_funds",
+    tool="wallet",
+    args={"amount": 100, "to": "0xabc..."},
+    source="user",
+)
+
+result.raise_if_blocked()  # raises MoltWallBlockedError if denied
+print(f"Decision: {result.decision}  Risk: {result.risk_score:.2f}  Latency: {result.latency_ms:.1f}ms")
+```
+
+## LangChain Integration
+
+```python
+from langchain_community.tools import ShellTool, WikipediaQueryRun
+from moltwall import MoltWall
+from moltwall.integrations.langchain import wrap_tools
+
+wall = MoltWall(api_key="moltwall_live_...")
+
+# Wrap all tools in one call
+safe_tools = wrap_tools(
+    tools=[ShellTool(), WikipediaQueryRun()],
+    wall=wall,
+    agent_id="lc-agent-01",
+    source="agent",
+)
+
+# Drop-in replacement — same interface as original tools
+from langchain.agents import create_react_agent
+agent = create_react_agent(llm, safe_tools, prompt)
+```
+
+## Error Handling
+
+```python
+from moltwall import MoltWall, MoltWallBlockedError, MoltWallAuthError
+
+try:
+    result = wall.check(agent_id="a1", action="delete_db", tool="sql", args={})
+    result.raise_if_blocked()
+except MoltWallBlockedError as e:
+    print(f"Blocked: {e.response.reason}")
+except MoltWallAuthError:
+    print("Invalid API key")
+```
+
+## Links
+
+- [Dashboard](https://www.moltwall.xyz/dashboard)
+- [Docs](https://www.moltwall.xyz/docs)
+- [GitHub](https://github.com/moltwall)
+- [npm (TypeScript SDK)](https://www.npmjs.com/package/@moltwall/sdk)
