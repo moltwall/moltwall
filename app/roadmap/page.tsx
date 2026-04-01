@@ -35,7 +35,8 @@ const PHASES = [
     tag: "BUILDING",
     summary: "Multi-language support, team tools, and deeper integrations.",
     items: [
-      { done: false, text: "Python & Go SDK" },
+      { done: true,  text: "Python SDK (beta) — pip install moltwall" },
+      { done: true,  text: "Go SDK — go get github.com/moltwall/sdk-go" },
       { done: false, text: "Custom rule builder · YAML-based policies" },
       { done: false, text: "Webhook notifications · Slack, PagerDuty, custom" },
       { done: false, text: "Team workspaces with RBAC" },
