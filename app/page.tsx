@@ -213,16 +213,33 @@ export default function LandingPage() {
               <span className="text-white font-bold">MoltWall</span> is a production-grade security firewall for AI agents. Every tool call evaluated, every threat blocked, every decision audited - in under <span className="text-[#FFC400] font-bold">10ms</span>.
             </p>
 
-            <div className="flex items-center gap-5 flex-wrap">
+            <div className="flex items-center gap-3 flex-wrap">
               <a
                 href="https://www.npmjs.com/package/@moltwall/sdk"
                 target="_blank"
                 rel="noreferrer"
-                className="group inline-flex items-center gap-2.5 bg-[#0d0d0d] border border-[#252525] hover:border-[#FFC400]/25 text-[#666] hover:text-[#999] font-mono text-[13px] px-5 py-4 rounded-xl transition-all duration-200"
+                className="group inline-flex items-center gap-2 bg-[#0d0d0d] border border-[#252525] hover:border-[#FFC400]/25 text-[#666] hover:text-[#999] font-mono text-[12px] px-4 py-3 rounded-xl transition-all duration-200"
               >
                 <span className="shrink-0 inline-flex items-center justify-center bg-[#CB3837] text-white text-[9px] font-black font-mono leading-none px-1.5 py-1 rounded">npm</span>
-                <span className="text-[#3a3a3a]">$</span>
-                <span className="group-hover:text-[#bbb] transition-colors duration-200">npm i @moltwall/sdk</span>
+                <span className="group-hover:text-[#bbb] transition-colors duration-200">@moltwall/sdk</span>
+              </a>
+              <a
+                href="https://pypi.org/project/moltwall/"
+                target="_blank"
+                rel="noreferrer"
+                className="group inline-flex items-center gap-2 bg-[#0d0d0d] border border-[#252525] hover:border-[#FFC400]/25 text-[#666] hover:text-[#999] font-mono text-[12px] px-4 py-3 rounded-xl transition-all duration-200"
+              >
+                <span className="shrink-0 inline-flex items-center justify-center bg-[#3572A5] text-white text-[9px] font-black font-mono leading-none px-1.5 py-1 rounded">PyPI</span>
+                <span className="group-hover:text-[#bbb] transition-colors duration-200">moltwall</span>
+              </a>
+              <a
+                href="https://github.com/moltwall/sdk-go"
+                target="_blank"
+                rel="noreferrer"
+                className="group inline-flex items-center gap-2 bg-[#0d0d0d] border border-[#252525] hover:border-[#FFC400]/25 text-[#666] hover:text-[#999] font-mono text-[12px] px-4 py-3 rounded-xl transition-all duration-200"
+              >
+                <span className="shrink-0 inline-flex items-center justify-center bg-[#00ADD8] text-white text-[9px] font-black font-mono leading-none px-1.5 py-1 rounded">Go</span>
+                <span className="group-hover:text-[#bbb] transition-colors duration-200">sdk-go</span>
               </a>
               <DashboardButton className="group relative inline-flex items-center justify-center gap-2 bg-[#FFC400] text-black font-black text-[15px] uppercase tracking-widest px-10 py-5 rounded-xl transition-all hover:bg-[#ffe166] hover:scale-[1.02] active:scale-95 font-display overflow-hidden shadow-[0_0_40px_rgba(255,196,0,0.35)] hover:shadow-[0_0_60px_rgba(255,196,0,0.5)]">
                 Deploy Firewall Now
@@ -592,6 +609,10 @@ if (result.decision === "allow") {
             <Link href="https://github.com/moltwall" target="_blank" className="hover:text-[#FFC400] transition-colors">Github</Link>
             <span>·</span>
             <Link href="https://www.npmjs.com/package/@moltwall/sdk" target="_blank" className="hover:text-[#FFC400] transition-colors">npm</Link>
+            <span>·</span>
+            <Link href="https://pypi.org/project/moltwall/" target="_blank" className="hover:text-[#FFC400] transition-colors">PyPI</Link>
+            <span>·</span>
+            <Link href="https://github.com/moltwall/sdk-go" target="_blank" className="hover:text-[#FFC400] transition-colors">Go SDK</Link>
             <span>·</span>
             <Link href="/terms" className="hover:text-[#FFC400] transition-colors">Terms</Link>
             <span>·</span>
