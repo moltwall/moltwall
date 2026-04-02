@@ -166,7 +166,7 @@ await executeTransfer(result)
 await wall.registerTool({
   tool_id: "solana_wallet",
   publisher: "acme-corp",
-  risk_level: "high", // low | medium | high | critical,
+  risk_level: "high", // low | medium | high | critical, // low | medium | high | critical,
   permissions: ["sign_transaction", "transfer"],
 })
 
