@@ -31,8 +31,8 @@ const PHASES = [
     phase: "02",
     label: "DEVELOPER PLATFORM",
     period: "Q2 2026",
-    status: "building" as const,
-    tag: "BUILDING",
+    status: "shipped" as const,
+    tag: "SHIPPED",
     summary: "Multi-language support, team tools, and deeper integrations.",
     items: [
       { done: true,  text: "Python SDK (beta) — pip install moltwall" },
@@ -41,9 +41,9 @@ const PHASES = [
       { done: true,  text: "Webhook notifications · Slack, PagerDuty, custom" },
       { done: true,  text: "Team workspaces with RBAC" },
       { done: true,  text: "API key scoping & rotation" },
-      { done: false, text: "Dashboard v2 · analytics + threat heatmap" },
-      { done: false, text: "GitHub Actions integration" },
-      { done: false, text: "Rate limiting & per-agent quota management" },
+      { done: true,  text: "Dashboard v2 · analytics + threat heatmap" },
+      { done: true,  text: "GitHub Actions integration" },
+      { done: true,  text: "Rate limiting & per-agent quota management" },
     ],
   },
   {
@@ -51,8 +51,8 @@ const PHASES = [
     phase: "03",
     label: "ENTERPRISE",
     period: "Q3 2026",
-    status: "planned" as const,
-    tag: "PLANNED",
+    status: "building" as const,
+    tag: "BUILDING",
     summary: "Enterprise-grade compliance, on-prem, and ML threat detection.",
     items: [
       { done: false, text: "SSO / SAML / OIDC" },
@@ -105,6 +105,7 @@ const STATUS_CONFIG = {
   building: { color: "#FFC400", bg: "bg-[#FFC400]/10",  border: "border-[#FFC400]/20",  text: "text-[#FFC400]"  },
   planned:  { color: "#555",    bg: "bg-[#555]/10",     border: "border-[#555]/20",     text: "text-[#666]"     },
   future:   { color: "#333",    bg: "bg-[#222]/50",     border: "border-[#222]",        text: "text-[#444]"     },
+  shipped:  { color: "#22c55e", bg: "bg-green-500/10",  border: "border-green-500/20",  text: "text-green-400"  },
 };
 
 function PhaseCard({
@@ -128,7 +129,7 @@ function PhaseCard({
     >
       <div
         className={`relative bg-[#080808] border rounded-2xl p-6 group transition-all duration-300 hover:border-[#FFC400]/20 hover:shadow-[0_0_40px_rgba(255,196,0,0.05)] ${
-          phase.status === "live"
+          phase.status === "live" || phase.status === "shipped"
             ? "border-green-500/30 shadow-[0_0_30px_rgba(34,197,94,0.06)]"
             : "border-[#1e1e1e]"
         }`}

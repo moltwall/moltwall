@@ -31,6 +31,15 @@ const NAV = [
           </svg>
         ),
       },
+      {
+        href: "/dashboard/analytics",
+        label: "Analytics",
+        icon: (
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M1 11l3-3 2.5 2L9 5l4 4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        ),
+      },
     ],
   },
   {
@@ -52,6 +61,26 @@ const NAV = [
         icon: (
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M8.5 2a2.5 2.5 0 00-3.54 3.54L1 9.5a1.2 1.2 0 001.7 1.7l3.96-3.96a2.5 2.5 0 003.54-3.54L8.5 5.4 7.1 4 9.5 1.6 8.5 2z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/>
+          </svg>
+        ),
+      },
+      {
+        href: "/dashboard/rate-limits",
+        label: "Rate Limits",
+        icon: (
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.3"/>
+            <path d="M7 4v3.5l2 1.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        ),
+      },
+      {
+        href: "/dashboard/integrations",
+        label: "Integrations",
+        icon: (
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7h4M8 7h4M7 2v4M7 8v4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+            <circle cx="7" cy="7" r="1.5" fill="currentColor"/>
           </svg>
         ),
       },
