@@ -93,18 +93,10 @@ function useTypewriter(messages: string[], speed = 40, pause = 1800) {
 /* ─── Component ──────────────────────────────────────────────────────────── */
 export function MaintenancePage() {
   const typeText = useTypewriter(MESSAGES);
-  const [tick, setTick] = useState(0);
-
   // Progress bar loop 0→100 every ~8s
   const [progress, setProgress] = useState(0);
   useEffect(() => {
     const t = setInterval(() => setProgress(p => (p >= 100 ? 0 : p + 0.4)), 32);
-    return () => clearInterval(t);
-  }, []);
-
-  // Pulse tick for LED
-  useEffect(() => {
-    const t = setInterval(() => setTick(n => n + 1), 900);
     return () => clearInterval(t);
   }, []);
 

@@ -110,7 +110,7 @@ export default function AnalyticsPage() {
 
   // Risk distribution buckets
   const buckets = [0, 0, 0, 0, 0]; // 0-20, 20-40, 40-60, 60-80, 80-100
-  logs.forEach(l => { buckets[Math.min(4, Math.floor(l.risk_score * 5))]++; });
+  logs.forEach(l => { const idx = Math.min(4, Math.floor(l.risk_score * 5)); buckets[idx] = (buckets[idx] ?? 0) + 1; });
   const bucketMax = Math.max(...buckets, 1);
 
   // Fake 7-day sparkline trends
